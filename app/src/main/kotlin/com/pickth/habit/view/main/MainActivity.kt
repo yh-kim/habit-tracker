@@ -14,18 +14,47 @@
  * limitations under the License.
  */
 
-package com.pickth.habit
+package com.pickth.habit.view.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
+import com.pickth.gachi.util.GridSpacingItemDecoration
+import com.pickth.habit.R
+import com.pickth.habit.view.main.adapter.MainAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by yonghoon on 2017-08-09
  */
 
-class MainActivity: AppCompatActivity() {
+class MainActivity: AppCompatActivity(), MainContract.View {
+
+    private lateinit var mPresenter: MainContract.Presenter
+    private lateinit var mAdapter: MainAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // actionbar
+        setSupportActionBar(main_toolbar)
+
+        // adapter
+        mAdapter = MainAdapter()
+
+        // presenter
+        mPresenter = MainPresenter().apply {
+            attachView(this@MainActivity)
+            setAdapterView(mAdapter)
+            setAdapterModel(mAdapter)
+            inputTest()
+        }
+
+        rv_main.run {
+            adapter = mAdapter
+            layoutManager = GridLayoutManager(context, 2)
+            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
+        }
     }
 }
