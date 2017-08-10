@@ -29,6 +29,7 @@ interface MainContract {
     interface View: BaseView<Presenter> {
         fun showToast(msg: String)
         fun showAddHabitDialog()
+        fun scrollToLastItem()
     }
 
     interface Presenter: BasePresenter {

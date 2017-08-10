@@ -56,5 +56,6 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
 
     override fun onLastItemClick() {
         mView.showAddHabitDialog()
+        mView.scrollToLastItem()
     }
 }

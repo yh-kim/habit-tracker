@@ -48,6 +48,7 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener): RecyclerVi
             // itemView is plus button
             if(item.isLast) {
                 tv_item_habit_title.visibility = View.GONE
+                tv_item_habit_day.visibility = View.GONE
                 iv_item_habit_last.visibility = View.VISIBLE
 
                 setOnClickListener {

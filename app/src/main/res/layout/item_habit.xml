@@ -24,6 +24,17 @@
         android:layout_gravity="center"
         android:textColor="@color/colorWhite" />
 
+    <TextView
+        android:id="@+id/tv_item_habit_day"
+        android:textColor="@color/colorWhite"
+        android:text="23일 전"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|end|bottom"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        />
+
     <ImageView
         android:id="@+id/iv_item_habit_last"
         android:layout_width="wrap_content"

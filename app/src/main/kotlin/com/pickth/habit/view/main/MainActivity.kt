@@ -19,6 +19,7 @@ package com.pickth.habit.view.main
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
@@ -35,6 +36,7 @@ class MainActivity: BaseActivity(), MainContract.View {
 
     private lateinit var mPresenter: MainPresenter
     private lateinit var mAdapter: MainAdapter
+    private lateinit var mRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +66,7 @@ class MainActivity: BaseActivity(), MainContract.View {
             addHabitItem(Habit("습관4", color1, false, false))
         }
 
-        rv_main.run {
+        mRecyclerView = rv_main.apply {
             adapter = mAdapter
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
@@ -78,5 +80,9 @@ class MainActivity: BaseActivity(), MainContract.View {
 
     override fun showAddHabitDialog() {
         mPresenter.addHabitItem(Habit("습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, false))
+    }
+
+    override fun scrollToLastItem() {
+        mRecyclerView.smoothScrollToPosition(mPresenter.getItemCount())
     }
 }
