@@ -16,4 +16,8 @@
         <item name="actionBarSize">49dp</item>
     </style>
 
+    <style name="TitleText">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
 </resources>
