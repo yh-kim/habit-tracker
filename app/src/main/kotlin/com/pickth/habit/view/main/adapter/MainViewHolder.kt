@@ -59,10 +59,15 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener): RecyclerVi
                 if(item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
 
                 setOnClickListener {
-                    item.isCheck = true
-                    listener.onItemClick(position)
-                    iv_item_habit_select.visibility = View.VISIBLE
-                    iv_item_habit_select.setShowAlphaAnimation(500)
+                    if(item.isCheck) {
+
+                    } else {
+                        item.isCheck = true
+                        listener.onItemClick(position)
+                        iv_item_habit_select.visibility = View.VISIBLE
+                        iv_item_habit_select.setShowAlphaAnimation(500)
+                    }
+
                 }
             }
 

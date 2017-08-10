@@ -67,7 +67,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 
     override fun addItem(item: Habit) {
         mItems.add(itemCount - 1, item)
-        notifyDataSetChanged()
-//        notifyItemInserted(itemCount - 1)
+//        notifyDataSetChanged()
+        notifyItemInserted(itemCount - 1)
     }
 }

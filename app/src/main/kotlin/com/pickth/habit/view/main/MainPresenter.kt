@@ -16,7 +16,6 @@
 
 package com.pickth.habit.view.main
 
-import android.util.Log
 import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.util.OnHabitClickListener
 import com.pickth.habit.view.main.adapter.Habit
@@ -52,7 +51,7 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        Log.v("[habit]", "$position")
+
     }
 
     override fun onLastItemClick() {
