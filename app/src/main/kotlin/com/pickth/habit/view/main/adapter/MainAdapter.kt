@@ -28,8 +28,13 @@ import com.pickth.habit.util.OnHabitClickListener
 
 class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.View, MainAdapterContract.Model {
 
+    companion object {
+        val HABIT_TYPE_ITEM = 0
+        val HABIT_TYPE_LAST = 1
+    }
+
     private var mItems = ArrayList<Habit>().apply {
-        add(Habit("",0, false))
+        add(Habit("", 0, false, true))
     }
     private lateinit var mListener: OnHabitClickListener
 
@@ -42,11 +47,15 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     }
 
     override fun onBindViewHolder(holder: MainViewHolder?, position: Int) {
+        holder?.onBind(mItems[position], position)
+    }
+
+    override fun getItemViewType(position: Int): Int {
         if(position == itemCount - 1) {
-            // 마지막
-            holder?.onBindLastItem()
+            // last item
+            return HABIT_TYPE_LAST
         } else {
-            holder?.onBind(mItems[position], position)
+            return HABIT_TYPE_ITEM
         }
     }
 
@@ -58,7 +67,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 
     override fun addItem(item: Habit) {
         mItems.add(itemCount - 1, item)
-//        notifyDataSetChanged()
-        notifyItemInserted(itemCount - 1)
+        notifyDataSetChanged()
+//        notifyItemInserted(itemCount - 1)
     }
 }

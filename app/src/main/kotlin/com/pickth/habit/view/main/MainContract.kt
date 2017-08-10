@@ -18,6 +18,7 @@ package com.pickth.habit.view.main
 
 import com.pickth.habit.base.mvp.BasePresenter
 import com.pickth.habit.base.mvp.BaseView
+import com.pickth.habit.view.main.adapter.Habit
 import com.pickth.habit.view.main.adapter.MainAdapterContract
 
 /**
@@ -27,10 +28,13 @@ import com.pickth.habit.view.main.adapter.MainAdapterContract
 interface MainContract {
     interface View: BaseView<Presenter> {
         fun showToast(msg: String)
+        fun showAddHabitDialog()
     }
 
     interface Presenter: BasePresenter {
         fun setAdapterView(view: MainAdapterContract.View)
         fun setAdapterModel(model: MainAdapterContract.Model)
+        fun addHabitItem(item: Habit)
+        fun getItemCount(): Int
     }
 }

@@ -18,6 +18,7 @@ package com.pickth.habit.view.main.adapter
 
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.pickth.habit.R
@@ -33,33 +34,39 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener): RecyclerVi
 
     fun onBind(item: Habit, position: Int) {
         with(itemView) {
-            tv_item_habit_title.text = item.title
-
             val back = iv_item_habit_background.background as LayerDrawable
             val background = (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
                     .apply {
-                        setColor(item.color)
+                        if(item.color == 0) {
+                            setColor(ContextCompat.getColor(context, R.color.colorBlack))
+                        } else {
+                            setColor(item.color)    
+                        }
+
                     }
 
-            setOnClickListener {
-                listener.onItemClick(position)
-                iv_item_habit_select.visibility = View.VISIBLE
-                iv_item_habit_select.setShowAlphaAnimation(500)
-            }
-        }
-    }
+            // itemView is plus button
+            if(item.isLast) {
+                tv_item_habit_title.visibility = View.GONE
+                iv_item_habit_last.visibility = View.VISIBLE
 
-    fun onBindLastItem() {
-        with(itemView) {
-            tv_item_habit_title.visibility = View.GONE
-            iv_item_habit_last.visibility = View.VISIBLE
-//            val back = iv_item_habit_background.background as LayerDrawable
-//            (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable).setVisible(false, true)
-//            iv_item_habit_background.backgroundColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                setOnClickListener {
+                    listener.onLastItemClick()
+                }
+            } else {
+                tv_item_habit_title.text = item.title
 
-            setOnClickListener {
-                listener.onLastItemClick()
+                if(item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
+
+                setOnClickListener {
+                    item.isCheck = true
+                    listener.onItemClick(position)
+                    iv_item_habit_select.visibility = View.VISIBLE
+                    iv_item_habit_select.setShowAlphaAnimation(500)
+                }
             }
+
+
         }
     }
 }

@@ -57,19 +57,26 @@ class MainActivity: BaseActivity(), MainContract.View {
         var color1 = ContextCompat.getColor(this, R.color.colorAccent)
         var color2 = ContextCompat.getColor(this, R.color.colorPrimary)
         var color3 = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-        mPresenter.inputTest(Habit("습관1", color1, false))
-        mPresenter.inputTest(Habit("습관2", color2, false))
-        mPresenter.inputTest(Habit("습관3", color3, false))
-        mPresenter.inputTest(Habit("습관4", color1, false))
+        mPresenter.run {
+            addHabitItem(Habit("습관1", color1, false, false))
+            addHabitItem(Habit("습관2", color2, false, false))
+            addHabitItem(Habit("습관3", color3, false, false))
+            addHabitItem(Habit("습관4", color1, false, false))
+        }
 
         rv_main.run {
             adapter = mAdapter
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
+            recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)
         }
     }
 
     override fun showToast(msg: String) {
         toast(msg)
+    }
+
+    override fun showAddHabitDialog() {
+        mPresenter.addHabitItem(Habit("습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, false))
     }
 }
