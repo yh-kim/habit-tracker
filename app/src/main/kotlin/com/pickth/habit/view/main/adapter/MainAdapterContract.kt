@@ -16,13 +16,15 @@
 
 package com.pickth.habit.view.main.adapter
 
+import com.pickth.habit.util.OnHabitClickListener
+
 /**
  * Created by yonghoon on 2017-08-09
  */
 
 interface MainAdapterContract {
     interface View {
-
+        fun setOnHabitClickListener(listener: OnHabitClickListener)
     }
 
     interface Model {

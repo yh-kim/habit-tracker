@@ -26,7 +26,7 @@ import com.pickth.habit.view.main.adapter.MainAdapterContract
 
 interface MainContract {
     interface View: BaseView<Presenter> {
-
+        fun showToast(msg: String)
     }
 
     interface Presenter: BasePresenter {
