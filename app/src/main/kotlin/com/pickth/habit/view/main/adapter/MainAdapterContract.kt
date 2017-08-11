@@ -30,5 +30,6 @@ interface MainAdapterContract {
     interface Model {
         fun getItemCount(): Int
         fun addItem(item: Habit)
+        fun getItem(position: Int): Habit
     }
 }

@@ -50,8 +50,10 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
         mAdapterModel.addItem(item)
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemCheck(position: Int) {
+    }
 
+    override fun onItemUnCheck(position: Int) {
     }
 
     override fun onLastItemClick() {

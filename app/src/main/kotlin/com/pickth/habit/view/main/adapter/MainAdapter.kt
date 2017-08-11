@@ -70,4 +70,6 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 //        notifyDataSetChanged()
         notifyItemInserted(itemCount - 1)
     }
+
+    override fun getItem(position: Int): Habit = mItems[position]
 }

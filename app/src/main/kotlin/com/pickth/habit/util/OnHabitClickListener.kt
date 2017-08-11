@@ -21,7 +21,7 @@ package com.pickth.habit.util
  */
 
 interface OnHabitClickListener {
-    fun onItemClick(position: Int)
-
+    fun onItemCheck(position: Int)
+    fun onItemUnCheck(position: Int)
     fun onLastItemClick()
 }

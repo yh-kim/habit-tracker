@@ -22,31 +22,34 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.pickth.habit.R
+import com.pickth.habit.extensions.setHideAlphaAnimation
 import com.pickth.habit.extensions.setShowAlphaAnimation
 import com.pickth.habit.util.OnHabitClickListener
 import kotlinx.android.synthetic.main.item_habit.view.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 
 /**
  * Created by yonghoon on 2017-08-09
  */
 
-class MainViewHolder(view: View, val listener: OnHabitClickListener): RecyclerView.ViewHolder(view) {
+class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerView.ViewHolder(view) {
 
     fun onBind(item: Habit, position: Int) {
         with(itemView) {
             val back = iv_item_habit_background.background as LayerDrawable
-            val background = (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
-                    .apply {
-                        if(item.color == 0) {
+            (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
+                    .run {
+                        if (item.color == 0) {
                             setColor(ContextCompat.getColor(context, R.color.colorBlack))
                         } else {
-                            setColor(item.color)    
+                            setColor(item.color)
                         }
-
                     }
 
             // itemView is plus button
-            if(item.isLast) {
+            if (item.isLast) {
                 tv_item_habit_title.visibility = View.GONE
                 tv_item_habit_day.visibility = View.GONE
                 iv_item_habit_last.visibility = View.VISIBLE
@@ -56,17 +59,26 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener): RecyclerVi
                 }
             } else {
                 tv_item_habit_title.text = item.title
-
-                if(item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
+                if (item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
 
                 setOnClickListener {
-                    if(item.isCheck) {
+                    if (item.isCheck) {
+                        context.alert("정말 취소하시겠습니까?") {
+                            yesButton {
+                                listener.onItemUnCheck(position)
+                                item.isCheck = false
+                                iv_item_habit_select.visibility = View.INVISIBLE
+                                iv_item_habit_select.setHideAlphaAnimation(500)
+                            }
+                            noButton { }
+                        }.show()
 
                     } else {
+                        listener.onItemCheck(position)
                         item.isCheck = true
-                        listener.onItemClick(position)
                         iv_item_habit_select.visibility = View.VISIBLE
                         iv_item_habit_select.setShowAlphaAnimation(500)
+
                     }
 
                 }
