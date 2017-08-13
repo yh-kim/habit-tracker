@@ -50,6 +50,10 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
         mAdapterModel.addItem(item)
     }
 
+    override fun addHabitItems(list: ArrayList<Habit>) {
+        mAdapterModel.addItems(list)
+    }
+
     override fun onItemCheck(position: Int) {
     }
 

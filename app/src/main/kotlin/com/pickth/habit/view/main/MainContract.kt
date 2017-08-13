@@ -36,6 +36,7 @@ interface MainContract {
         fun setAdapterView(view: MainAdapterContract.View)
         fun setAdapterModel(model: MainAdapterContract.Model)
         fun addHabitItem(item: Habit)
+        fun addHabitItems(list: ArrayList<Habit>)
         fun getItemCount(): Int
     }
 }

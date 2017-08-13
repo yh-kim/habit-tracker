@@ -23,6 +23,7 @@ import android.support.v7.widget.RecyclerView
 import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
+import com.pickth.habit.util.HabitManagement
 import com.pickth.habit.view.main.adapter.Habit
 import com.pickth.habit.view.main.adapter.MainAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -56,22 +57,14 @@ class MainActivity: BaseActivity(), MainContract.View {
             setAdapterModel(mAdapter)
         }
 
-        var color1 = ContextCompat.getColor(this, R.color.colorAccent)
-        var color2 = ContextCompat.getColor(this, R.color.colorPrimary)
-        var color3 = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-        mPresenter.run {
-            addHabitItem(Habit("습관1", color1, false, false))
-            addHabitItem(Habit("습관2", color2, false, false))
-            addHabitItem(Habit("습관3", color3, false, false))
-            addHabitItem(Habit("습관4", color1, false, false))
-        }
-
         mRecyclerView = rv_main.apply {
             adapter = mAdapter
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
             recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)
         }
+
+        mPresenter.addHabitItems(HabitManagement.getHabits(this))
     }
 
     override fun showToast(msg: String) {
@@ -79,7 +72,9 @@ class MainActivity: BaseActivity(), MainContract.View {
     }
 
     override fun showAddHabitDialog() {
-        mPresenter.addHabitItem(Habit("습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, false))
+        var habit = Habit("습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, null, false)
+        mPresenter.addHabitItem(habit)
+        HabitManagement.addHabit(this, habit)
     }
 
     override fun scrollToLastItem() {

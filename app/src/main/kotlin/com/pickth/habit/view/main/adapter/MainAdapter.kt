@@ -34,7 +34,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     }
 
     private var mItems = ArrayList<Habit>().apply {
-        add(Habit("", 0, false, true))
+        add(Habit("", 0, false, null, true))
     }
     private lateinit var mListener: OnHabitClickListener
 
@@ -69,6 +69,10 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
         mItems.add(itemCount - 1, item)
 //        notifyDataSetChanged()
         notifyItemInserted(itemCount - 1)
+    }
+
+    override fun addItems(list: ArrayList<Habit>) {
+        for(i in list) addItem(i)
     }
 
     override fun getItem(position: Int): Habit = mItems[position]

@@ -20,4 +20,4 @@ package com.pickth.habit.view.main.adapter
  * Created by yonghoon on 2017-08-09
  */
 
-data class Habit(var title: String, var color: Int, var isCheck: Boolean, var isLast: Boolean)
+data class Habit(var title: String, var color: Int, var isCheck: Boolean, var days: ArrayList<String>?, var isLast: Boolean)
