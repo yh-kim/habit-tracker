@@ -28,6 +28,7 @@ import com.pickth.habit.view.main.adapter.Habit
 import com.pickth.habit.view.main.adapter.MainAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
+import java.util.*
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -72,7 +73,7 @@ class MainActivity: BaseActivity(), MainContract.View {
     }
 
     override fun showAddHabitDialog() {
-        var habit = Habit("습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, null, false)
+        var habit = Habit("습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, ArrayList(), false)
         mPresenter.addHabitItem(habit)
         HabitManagement.addHabit(this, habit)
     }

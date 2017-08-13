@@ -42,7 +42,7 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
             (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
                     .run {
                         if (item.color == 0) {
-                            setColor(ContextCompat.getColor(context, R.color.colorBlack))
+                            setColor(ContextCompat.getColor(context, R.color.colorPlus))
                         } else {
                             setColor(item.color)
                         }
@@ -59,6 +59,7 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
                 }
             } else {
                 tv_item_habit_title.text = item.title
+                if(item.days.size != 0) tv_item_habit_day.text = item.days[0]
                 if (item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
 
                 setOnClickListener {

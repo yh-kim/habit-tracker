@@ -10,6 +10,14 @@
         android:layout_height="match_parent"
         android:background="@drawable/square_habit_background" />
 
+    <TextView
+        android:id="@+id/tv_item_habit_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp" />
+
     <ImageView
         android:id="@+id/iv_item_habit_select"
         android:layout_width="match_parent"
@@ -18,29 +26,20 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/tv_item_habit_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/colorWhite" />
-
-    <TextView
         android:id="@+id/tv_item_habit_day"
-        android:textColor="@color/colorWhite"
-        android:text="23일 전"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|end|bottom"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        />
+        android:layout_marginRight="8dp"
+        android:textColor="@color/colorWhite" />
 
     <ImageView
         android:id="@+id/iv_item_habit_last"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
-        android:tint="@color/colorWhite"
         android:src="@drawable/ic_add"
+        android:tint="@color/colorWhite"
         android:visibility="gone" />
 </com.pickth.habit.view.custom.SquareFrameLayout>
