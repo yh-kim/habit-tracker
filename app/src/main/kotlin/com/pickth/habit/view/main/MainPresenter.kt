@@ -62,6 +62,7 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
         mAdapterModel.getItem(position).days.add(0, StringUtil.getCurrentDay())
 
         HabitManagement.notifyDataSetChanged(mView.getContext())
+        mView.updateWidget()
     }
 
     override fun onItemUnCheck(position: Int) {
@@ -69,6 +70,7 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
         mAdapterModel.getItem(position).days.removeAt(0)
 
         HabitManagement.notifyDataSetChanged(mView.getContext())
+        mView.updateWidget()
     }
 
     override fun onItemLongClick(position: Int) {

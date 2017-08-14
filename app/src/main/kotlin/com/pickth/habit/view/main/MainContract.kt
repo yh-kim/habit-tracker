@@ -32,6 +32,7 @@ interface MainContract {
         fun showAddHabitDialog()
         fun scrollToLastItem()
         fun getContext(): Context
+        fun updateWidget()
     }
 
     interface Presenter: BasePresenter {

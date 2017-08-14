@@ -16,7 +16,10 @@
 
 package com.pickth.habit.view.main
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -27,6 +30,7 @@ import com.pickth.habit.base.activity.BaseActivity
 import com.pickth.habit.util.HabitManagement
 import com.pickth.habit.view.dialog.AddHabitDialog
 import com.pickth.habit.view.main.adapter.MainAdapter
+import com.pickth.habit.widget.HabitWidget
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
@@ -87,4 +91,17 @@ class MainActivity: BaseActivity(), MainContract.View {
     }
 
     override fun getContext(): Context = this
+
+    override fun updateWidget() {
+        var ids = AppWidgetManager
+                .getInstance(this)
+                .getAppWidgetIds(
+                        ComponentName(this, HabitWidget::class.java)
+                )
+        var intent = Intent(this, HabitWidget::class.java).apply {
+            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+        sendBroadcast(intent)
+    }
 }

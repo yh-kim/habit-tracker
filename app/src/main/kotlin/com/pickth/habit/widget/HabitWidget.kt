@@ -46,7 +46,11 @@ class HabitWidget: AppWidgetProvider() {
             if(!habit.days.isEmpty()) {
                 if(habit.days[0] == StringUtil.getCurrentDay())  {
                     views.setViewVisibility(R.id.iv_widget_habit_select, View.VISIBLE)
+                } else {
+                    views.setViewVisibility(R.id.iv_widget_habit_select, View.GONE)
                 }
+            } else {
+                views.setViewVisibility(R.id.iv_widget_habit_select, View.GONE)
             }
 
             // click event
