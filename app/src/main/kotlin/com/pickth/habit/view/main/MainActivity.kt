@@ -17,18 +17,17 @@
 package com.pickth.habit.view.main
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
 import com.pickth.habit.util.HabitManagement
-import com.pickth.habit.view.main.adapter.Habit
+import com.pickth.habit.view.dialog.AddHabitDialog
 import com.pickth.habit.view.main.adapter.MainAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
-import java.util.*
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -39,6 +38,7 @@ class MainActivity: BaseActivity(), MainContract.View {
     private lateinit var mPresenter: MainPresenter
     private lateinit var mAdapter: MainAdapter
     private lateinit var mRecyclerView: RecyclerView
+    private lateinit var addHabitDialog: AddHabitDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +74,18 @@ class MainActivity: BaseActivity(), MainContract.View {
     }
 
     override fun showAddHabitDialog() {
-        var habit = Habit(UUID.randomUUID().toString(),"습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, ArrayList(), false)
-        mPresenter.addHabitItem(habit)
-        HabitManagement.addHabit(this, habit)
+        addHabitDialog = AddHabitDialog(this, View.OnClickListener {
+            var habit = addHabitDialog.addHabit()
+            if(habit != null) {
+                mPresenter.addHabitItem(habit)
+                HabitManagement.addHabit(this, habit)
+            }
+        })
+
+        addHabitDialog.show()
+//        var habit = Habit(UUID.randomUUID().toString(),"습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, ArrayList(), false)
+//        mPresenter.addHabitItem(habit)
+//        HabitManagement.addHabit(this, habit)
     }
 
     override fun scrollToLastItem() {

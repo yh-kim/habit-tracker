@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorMain"
     android:orientation="vertical">
 
     <!-- app bar -->
@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorMain"
-            app:titleTextAppearance="@style/TitleText"
-            android:minHeight="?attr/actionBarSize" />
+            android:minHeight="?attr/actionBarSize"
+            app:titleTextAppearance="@style/TitleText" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -27,5 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
-        android:padding="16dp" />
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp" />
 </LinearLayout>

@@ -16,6 +16,12 @@
         <item name="actionBarSize">49dp</item>
     </style>
 
+    <style name="AppTheme.NoTitle.TransLucent">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/colorBlackTrans</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
     <style name="TitleText">
         <item name="android:textColor">@color/colorWhite</item>
     </style>
