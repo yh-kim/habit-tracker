@@ -3,7 +3,7 @@
     <item android:id="@+id/square_background_item">
         <shape>
             <corners android:radius="7dp"/>
-            <solid android:color="#000000" />
+            <solid android:color="@color/colorAccent" />
         </shape>
     </item>
 </layer-list>
