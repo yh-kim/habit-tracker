@@ -16,7 +16,9 @@
 
 package com.pickth.habit.view.main
 
+import android.util.Log
 import com.pickth.habit.base.mvp.BaseView
+import com.pickth.habit.util.HabitManagement
 import com.pickth.habit.util.OnHabitClickListener
 import com.pickth.habit.view.main.adapter.Habit
 import com.pickth.habit.view.main.adapter.MainAdapterContract
@@ -48,6 +50,7 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
 
     override fun addHabitItem(item: Habit) {
         mAdapterModel.addItem(item)
+        HabitManagement.addHabit(mView.getContext(), item)
     }
 
     override fun addHabitItems(list: ArrayList<Habit>) {
@@ -58,6 +61,11 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
     }
 
     override fun onItemUnCheck(position: Int) {
+    }
+
+    override fun onItemLongClick(position: Int) {
+        mAdapterModel.removeItem(position)
+        HabitManagement.removeHabit(mView.getContext(), position)
     }
 
     override fun onLastItemClick() {

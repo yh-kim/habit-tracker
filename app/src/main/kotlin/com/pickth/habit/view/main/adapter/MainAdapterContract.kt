@@ -32,5 +32,6 @@ interface MainAdapterContract {
         fun addItem(item: Habit)
         fun addItems(list: ArrayList<Habit>)
         fun getItem(position: Int): Habit
+        fun removeItem(position: Int): Boolean
     }
 }

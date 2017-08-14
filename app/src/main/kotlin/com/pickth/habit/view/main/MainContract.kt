@@ -16,6 +16,7 @@
 
 package com.pickth.habit.view.main
 
+import android.content.Context
 import com.pickth.habit.base.mvp.BasePresenter
 import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.view.main.adapter.Habit
@@ -30,6 +31,7 @@ interface MainContract {
         fun showToast(msg: String)
         fun showAddHabitDialog()
         fun scrollToLastItem()
+        fun getContext(): Context
     }
 
     interface Presenter: BasePresenter {

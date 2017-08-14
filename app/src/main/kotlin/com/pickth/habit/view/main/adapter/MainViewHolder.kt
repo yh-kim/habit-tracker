@@ -20,6 +20,7 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import com.pickth.habit.R
 import com.pickth.habit.extensions.setHideAlphaAnimation
@@ -64,11 +65,20 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
                 if(item.days.size != 0) tv_item_habit_day.text = item.days[0]
                 if (item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
 
+                setOnLongClickListener {
+                    Log.v("habit000", "$position")
+                    context.alert("정말 삭제하시겠습니까?") {
+                        yesButton { listener.onItemLongClick(position) }
+                        noButton { }
+                    }.show()
+
+                    true
+                }
+
                 setOnClickListener {
                     if (item.isCheck) {
                         context.alert("정말 취소하시겠습니까?") {
                             yesButton {
-                                listener.onItemUnCheck(position)
                                 item.isCheck = false
                                 HabitManagement.notifyDataSetChanged(context)
                                 iv_item_habit_select.visibility = View.INVISIBLE
@@ -79,7 +89,6 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
 
                     } else {
                         // 체크했을 때
-                        listener.onItemCheck(position)
                         item.isCheck = true
                         HabitManagement.notifyDataSetChanged(context)
                         iv_item_habit_select.visibility = View.VISIBLE

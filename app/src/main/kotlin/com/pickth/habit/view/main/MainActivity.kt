@@ -16,6 +16,7 @@
 
 package com.pickth.habit.view.main
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -51,13 +52,6 @@ class MainActivity: BaseActivity(), MainContract.View {
         mAdapter = MainAdapter()
         mAdapter.notifyDataSetChanged()
 
-        // presenter
-        mPresenter = MainPresenter().apply {
-            attachView(this@MainActivity)
-            setAdapterView(mAdapter)
-            setAdapterModel(mAdapter)
-        }
-
         mRecyclerView = rv_main.apply {
             adapter = mAdapter
             layoutManager = GridLayoutManager(context, 2)
@@ -65,8 +59,14 @@ class MainActivity: BaseActivity(), MainContract.View {
             recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)
         }
 
-//        HabitManagement.removeAllHabit(this)
-        mPresenter.addHabitItems(HabitManagement.getHabits(this))
+        // presenter
+        mPresenter = MainPresenter().apply {
+            attachView(this@MainActivity)
+            setAdapterView(mAdapter)
+            setAdapterModel(mAdapter)
+
+            addHabitItems(HabitManagement.getHabits(this@MainActivity))
+        }
     }
 
     override fun showToast(msg: String) {
@@ -75,20 +75,16 @@ class MainActivity: BaseActivity(), MainContract.View {
 
     override fun showAddHabitDialog() {
         addHabitDialog = AddHabitDialog(this, View.OnClickListener {
-            var habit = addHabitDialog.addHabit()
-            if(habit != null) {
-                mPresenter.addHabitItem(habit)
-                HabitManagement.addHabit(this, habit)
+            addHabitDialog.addHabit()?.let {
+                mPresenter.addHabitItem(it)
             }
         })
-
         addHabitDialog.show()
-//        var habit = Habit(UUID.randomUUID().toString(),"습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, ArrayList(), false)
-//        mPresenter.addHabitItem(habit)
-//        HabitManagement.addHabit(this, habit)
     }
 
     override fun scrollToLastItem() {
         mRecyclerView.smoothScrollToPosition(mPresenter.getItemCount())
     }
+
+    override fun getContext(): Context = this
 }

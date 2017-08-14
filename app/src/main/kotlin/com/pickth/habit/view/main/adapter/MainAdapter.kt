@@ -76,4 +76,13 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     }
 
     override fun getItem(position: Int): Habit = mItems[position]
+
+    override fun removeItem(position: Int): Boolean {
+        if(mItems.isEmpty()) return false
+
+        mItems.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, itemCount)
+        return true
+    }
 }
