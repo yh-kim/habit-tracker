@@ -16,8 +16,10 @@
 
 package com.pickth.habit.widget
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -33,10 +35,13 @@ import com.pickth.habit.util.StringUtil
 class HabitWidget: AppWidgetProvider() {
 
     companion object {
-        internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            var views = RemoteViews(context?.packageName, R.layout.widget_habit)
+        val HABIT_CLICK = "android.action.HABIT_CLICK"
 
-            val habit = HabitManagement.getHabits(context!!)[0]
+        internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+
+            // bind
+            var views = RemoteViews(context.packageName, R.layout.widget_habit)
+            val habit = HabitManagement.getHabits(context)[0]
             views.setTextViewText(R.id.tv_widget_habit_title, habit.title)
             if(!habit.days.isEmpty()) {
                 if(habit.days[0] == StringUtil.getCurrentDay())  {
@@ -44,7 +49,16 @@ class HabitWidget: AppWidgetProvider() {
                 }
             }
 
-            appWidgetManager?.updateAppWidget(appWidgetId!!, views)
+            // click event
+            var listener = PendingIntent.getBroadcast(
+                    context,
+                    0,
+                    Intent(HABIT_CLICK),
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            views.setOnClickPendingIntent(R.id.fl_widget_habit, listener)
+
+            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
     }
 
@@ -53,6 +67,35 @@ class HabitWidget: AppWidgetProvider() {
      * 가장 먼저 호출
      */
     override fun onReceive(context: Context, intent: Intent) {
+        var views = RemoteViews(context.packageName, R.layout.widget_habit)
+
+        when(intent.action) {
+            HABIT_CLICK -> {
+                val habit = HabitManagement.getHabits(context)[0]
+                if(!habit.days.isEmpty()) {
+                    if(habit.days[0] == StringUtil.getCurrentDay())  {
+                        // 체크 되어있는 상태
+                        habit.days.removeAt(0)
+                        HabitManagement.notifyDataSetChanged(context)
+                        views.setViewVisibility(R.id.iv_widget_habit_select, View.GONE)
+                    } else {
+                        // 체크 안 되어있는 상태
+                        habit.days.add(0, StringUtil.getCurrentDay())
+                        HabitManagement.notifyDataSetChanged(context)
+                        views.setViewVisibility(R.id.iv_widget_habit_select, View.VISIBLE)
+                    }
+                } else {
+                    // 비어있으므로 체크
+                    habit.days.add(0, StringUtil.getCurrentDay())
+                    HabitManagement.notifyDataSetChanged(context)
+                    views.setViewVisibility(R.id.iv_widget_habit_select, View.VISIBLE)
+                }
+            }
+        }
+
+        AppWidgetManager.getInstance(context)
+                .updateAppWidget(ComponentName(context, javaClass), views)
+
         super.onReceive(context, intent)
     }
 

@@ -18,6 +18,7 @@
 
         <receiver android:name=".widget.HabitWidget">
             <intent-filter>
+                <action android:name="android.action.HABIT_CLICK" />
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
