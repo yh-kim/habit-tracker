@@ -85,4 +85,8 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
         notifyItemRangeChanged(position, itemCount)
         return true
     }
+
+    override fun notifyChanged(position: Int) {
+        notifyItemChanged(position)
+    }
 }

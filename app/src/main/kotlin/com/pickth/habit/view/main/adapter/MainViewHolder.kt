@@ -20,13 +20,12 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import com.pickth.habit.R
 import com.pickth.habit.extensions.setHideAlphaAnimation
 import com.pickth.habit.extensions.setShowAlphaAnimation
-import com.pickth.habit.util.HabitManagement
 import com.pickth.habit.util.OnHabitClickListener
+import com.pickth.habit.util.StringUtil
 import kotlinx.android.synthetic.main.item_habit.view.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -63,24 +62,17 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
                 // 일반 아이템
                 tv_item_habit_title.text = item.title
                 if(item.days.size != 0) tv_item_habit_day.text = item.days[0]
-                if (item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
-
-                setOnLongClickListener {
-                    Log.v("habit000", "$position")
-                    context.alert("정말 삭제하시겠습니까?") {
-                        yesButton { listener.onItemLongClick(position) }
-                        noButton { }
-                    }.show()
-
-                    true
+                if(item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
+                if(!item.days.isEmpty()) {
+                    tv_item_habit_day.text = StringUtil.formatDayToString(item.days[0])
                 }
 
                 setOnClickListener {
                     if (item.isCheck) {
                         context.alert("정말 취소하시겠습니까?") {
                             yesButton {
-                                item.isCheck = false
-                                HabitManagement.notifyDataSetChanged(context)
+                                listener.onItemUnCheck(position)
+
                                 iv_item_habit_select.visibility = View.INVISIBLE
                                 iv_item_habit_select.setHideAlphaAnimation(500)
                             }
@@ -89,12 +81,20 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
 
                     } else {
                         // 체크했을 때
-                        item.isCheck = true
-                        HabitManagement.notifyDataSetChanged(context)
+                        listener.onItemCheck(position)
+
                         iv_item_habit_select.visibility = View.VISIBLE
                         iv_item_habit_select.setShowAlphaAnimation(500)
                     }
 
+                }
+
+                setOnLongClickListener {
+                    context.alert("정말 삭제하시겠습니까?") {
+                        yesButton { listener.onItemLongClick(position) }
+                        noButton { }
+                    }.show()
+                    true
                 }
             }
 

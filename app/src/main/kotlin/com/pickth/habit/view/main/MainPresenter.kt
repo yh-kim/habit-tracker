@@ -16,10 +16,10 @@
 
 package com.pickth.habit.view.main
 
-import android.util.Log
 import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.util.HabitManagement
 import com.pickth.habit.util.OnHabitClickListener
+import com.pickth.habit.util.StringUtil
 import com.pickth.habit.view.main.adapter.Habit
 import com.pickth.habit.view.main.adapter.MainAdapterContract
 
@@ -58,9 +58,25 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
     }
 
     override fun onItemCheck(position: Int) {
+        mAdapterModel.notifyChanged(position)
+
+        mAdapterModel.getItem(position).run {
+            days.add(0, StringUtil.getCurrentDay())
+            isCheck = true
+        }
+
+        HabitManagement.notifyDataSetChanged(mView.getContext())
     }
 
     override fun onItemUnCheck(position: Int) {
+        mAdapterModel.notifyChanged(position)
+
+        mAdapterModel.getItem(position).run {
+            days.removeAt(0)
+            isCheck = false
+        }
+
+        HabitManagement.notifyDataSetChanged(mView.getContext())
     }
 
     override fun onItemLongClick(position: Int) {
