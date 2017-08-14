@@ -59,22 +59,14 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
 
     override fun onItemCheck(position: Int) {
         mAdapterModel.notifyChanged(position)
-
-        mAdapterModel.getItem(position).run {
-            days.add(0, StringUtil.getCurrentDay())
-            isCheck = true
-        }
+        mAdapterModel.getItem(position).days.add(0, StringUtil.getCurrentDay())
 
         HabitManagement.notifyDataSetChanged(mView.getContext())
     }
 
     override fun onItemUnCheck(position: Int) {
         mAdapterModel.notifyChanged(position)
-
-        mAdapterModel.getItem(position).run {
-            days.removeAt(0)
-            isCheck = false
-        }
+        mAdapterModel.getItem(position).days.removeAt(0)
 
         HabitManagement.notifyDataSetChanged(mView.getContext())
     }
@@ -86,6 +78,6 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
 
     override fun onLastItemClick() {
         mView.showAddHabitDialog()
-        mView.scrollToLastItem()
+//        mView.scrollToLastItem()
     }
 }

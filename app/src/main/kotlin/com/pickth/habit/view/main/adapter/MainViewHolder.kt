@@ -60,15 +60,18 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
                 }
             } else {
                 // 일반 아이템
+                var isCheck = false
                 tv_item_habit_title.text = item.title
                 if(item.days.size != 0) tv_item_habit_day.text = item.days[0]
-                if(item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
                 if(!item.days.isEmpty()) {
                     tv_item_habit_day.text = StringUtil.formatDayToString(item.days[0])
+                    isCheck = item.days[0] == StringUtil.getCurrentDay()
                 }
+                if(isCheck) iv_item_habit_select.visibility = View.VISIBLE
+
 
                 setOnClickListener {
-                    if (item.isCheck) {
+                    if (isCheck) {
                         context.alert("정말 취소하시겠습니까?") {
                             yesButton {
                                 listener.onItemUnCheck(position)

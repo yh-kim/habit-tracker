@@ -20,9 +20,9 @@ package com.pickth.habit.view.main.adapter
  * Created by yonghoon on 2017-08-09
  */
 
-data class Habit(var id: String, var title: String, var color: Int, var isCheck: Boolean, var days: ArrayList<String>, var isLast: Boolean) {
+data class Habit(var id: String, var title: String, var color: Int, var days: ArrayList<String>, var isLast: Boolean) {
     // Use plus button
-    constructor(): this("", "", 0, false, ArrayList(), true)
+    constructor(): this("", "", 0, ArrayList(), true)
     // Use add habit
-    constructor(id: String, title: String, color: Int): this(id, title, color, false, ArrayList(), false)
+    constructor(id: String, title: String, color: Int): this(id, title, color, ArrayList(), false)
 }
