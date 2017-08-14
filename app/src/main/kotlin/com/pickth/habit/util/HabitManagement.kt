@@ -44,26 +44,34 @@ object HabitManagement {
         return mHabits
     }
 
-    private fun notifyDataSetChanged(context: Context, habits: ArrayList<Habit>) {
+    fun notifyDataSetChanged(context: Context) {
         context.getSharedPreferences("habits", 0)
                 .edit()
-                .putString(Gson().toJson(habits).toString(), "habits")
+                .putString("habits", Gson().toJson(mHabits).toString())
                 .commit()
     }
 
     fun addHabit(context: Context, habit: Habit) {
         mHabits.add(habit)
-        notifyDataSetChanged(context, mHabits)
+        notifyDataSetChanged(context)
     }
 
     fun removeHabit(context: Context, position: Int) {
         mHabits.removeAt(position)
-        notifyDataSetChanged(context, mHabits)
+        notifyDataSetChanged(context)
+    }
+
+    fun removeAllHabit(context: Context) {
+        context
+                .getSharedPreferences("habits", 0)
+                .edit()
+                .clear()
+                .commit()
     }
 
     fun logHabitStatus(context: Context) {
-        for(i in mHabits) {
-            Log.v("habit", i.toString())
+        for(i in getHabits(context)) {
+            Log.v("habit00", i.toString())
         }
     }
 }

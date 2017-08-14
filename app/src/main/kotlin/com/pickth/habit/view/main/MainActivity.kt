@@ -65,6 +65,7 @@ class MainActivity: BaseActivity(), MainContract.View {
             recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)
         }
 
+//        HabitManagement.removeAllHabit(this)
         mPresenter.addHabitItems(HabitManagement.getHabits(this))
     }
 
@@ -73,7 +74,7 @@ class MainActivity: BaseActivity(), MainContract.View {
     }
 
     override fun showAddHabitDialog() {
-        var habit = Habit("습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, ArrayList(), false)
+        var habit = Habit(UUID.randomUUID().toString(),"습관${mPresenter.getItemCount() + 1}", ContextCompat.getColor(this, R.color.colorAccent), false, ArrayList(), false)
         mPresenter.addHabitItem(habit)
         HabitManagement.addHabit(this, habit)
     }

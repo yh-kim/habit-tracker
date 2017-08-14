@@ -24,6 +24,7 @@ import android.view.View
 import com.pickth.habit.R
 import com.pickth.habit.extensions.setHideAlphaAnimation
 import com.pickth.habit.extensions.setShowAlphaAnimation
+import com.pickth.habit.util.HabitManagement
 import com.pickth.habit.util.OnHabitClickListener
 import kotlinx.android.synthetic.main.item_habit.view.*
 import org.jetbrains.anko.alert
@@ -58,6 +59,7 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
                     listener.onLastItemClick()
                 }
             } else {
+                // 일반 아이템
                 tv_item_habit_title.text = item.title
                 if(item.days.size != 0) tv_item_habit_day.text = item.days[0]
                 if (item.isCheck) iv_item_habit_select.visibility = View.VISIBLE
@@ -68,6 +70,7 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
                             yesButton {
                                 listener.onItemUnCheck(position)
                                 item.isCheck = false
+                                HabitManagement.notifyDataSetChanged(context)
                                 iv_item_habit_select.visibility = View.INVISIBLE
                                 iv_item_habit_select.setHideAlphaAnimation(500)
                             }
@@ -75,11 +78,12 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
                         }.show()
 
                     } else {
+                        // 체크했을 때
                         listener.onItemCheck(position)
                         item.isCheck = true
+                        HabitManagement.notifyDataSetChanged(context)
                         iv_item_habit_select.visibility = View.VISIBLE
                         iv_item_habit_select.setShowAlphaAnimation(500)
-
                     }
 
                 }

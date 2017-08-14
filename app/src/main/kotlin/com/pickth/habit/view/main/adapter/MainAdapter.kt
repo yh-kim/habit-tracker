@@ -34,7 +34,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     }
 
     private var mItems = ArrayList<Habit>().apply {
-        add(Habit("", 0, false, ArrayList(), true))
+        add(Habit())
     }
     private lateinit var mListener: OnHabitClickListener
 
