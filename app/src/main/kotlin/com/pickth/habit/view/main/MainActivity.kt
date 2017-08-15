@@ -27,7 +27,7 @@ import android.view.View
 import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
-import com.pickth.habit.util.HabitManagement
+import com.pickth.habit.util.HabitManager
 import com.pickth.habit.view.dialog.AddHabitDialog
 import com.pickth.habit.view.main.adapter.MainAdapter
 import com.pickth.habit.widget.HabitWidget
@@ -69,7 +69,7 @@ class MainActivity: BaseActivity(), MainContract.View {
             setAdapterView(mAdapter)
             setAdapterModel(mAdapter)
 
-            addHabitItems(HabitManagement.getHabits(this@MainActivity))
+            addHabitItems(HabitManager.getHabits(this@MainActivity))
         }
     }
 

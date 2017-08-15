@@ -17,7 +17,7 @@
 package com.pickth.habit.view.main
 
 import com.pickth.habit.base.mvp.BaseView
-import com.pickth.habit.util.HabitManagement
+import com.pickth.habit.util.HabitManager
 import com.pickth.habit.util.OnHabitClickListener
 import com.pickth.habit.util.StringUtil
 import com.pickth.habit.view.main.adapter.Habit
@@ -50,7 +50,7 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
 
     override fun addHabitItem(item: Habit) {
         mAdapterModel.addItem(item)
-        HabitManagement.addHabit(mView.getContext(), item)
+        HabitManager.addHabit(mView.getContext(), item)
     }
 
     override fun addHabitItems(list: ArrayList<Habit>) {
@@ -61,7 +61,7 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
         mAdapterModel.notifyChanged(position)
         mAdapterModel.getItem(position).days.add(0, StringUtil.getCurrentDay())
 
-        HabitManagement.notifyDataSetChanged(mView.getContext())
+        HabitManager.notifyDataSetChanged(mView.getContext())
         mView.updateWidget()
     }
 
@@ -69,13 +69,13 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
         mAdapterModel.notifyChanged(position)
         mAdapterModel.getItem(position).days.removeAt(0)
 
-        HabitManagement.notifyDataSetChanged(mView.getContext())
+        HabitManager.notifyDataSetChanged(mView.getContext())
         mView.updateWidget()
     }
 
     override fun onItemLongClick(position: Int) {
         mAdapterModel.removeItem(position)
-        HabitManagement.removeHabit(mView.getContext(), position)
+        HabitManager.removeHabit(mView.getContext(), position)
     }
 
     override fun onLastItemClick() {

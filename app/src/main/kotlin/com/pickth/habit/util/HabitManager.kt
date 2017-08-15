@@ -26,7 +26,7 @@ import com.pickth.habit.view.main.adapter.Habit
  * Created by yonghoon on 2017-08-13
  */
 
-object HabitManagement {
+object HabitManager {
     private var mHabits = ArrayList<Habit>()
 
     fun getHabits(context: Context): ArrayList<Habit> {
