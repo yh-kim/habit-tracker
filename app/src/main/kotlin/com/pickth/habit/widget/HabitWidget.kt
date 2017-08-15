@@ -42,6 +42,11 @@ class HabitWidget: AppWidgetProvider() {
             var views = RemoteViews(context.packageName, R.layout.widget_habit)
 
             var position = HabitWidgetManager.getHabitPosition(context, appWidgetId)
+
+            if(position == null) {
+                return
+            }
+
             var habit = HabitManager.getHabits(context)[position]
 
             views.setTextViewText(R.id.tv_widget_habit_title, habit.title)
@@ -81,6 +86,10 @@ class HabitWidget: AppWidgetProvider() {
         if (intent.action.startsWith(ACTION_CLICKED)) {
             var id = intent.action.substring(ACTION_CLICKED.length).toInt()
             val habitPosition = HabitWidgetManager.getHabitPosition(context, id)
+
+            if(habitPosition == null) {
+                return
+            }
 
             val habit = HabitManager.getHabits(context)[habitPosition]
             if (!habit.days.isEmpty()) {

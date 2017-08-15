@@ -31,7 +31,7 @@ object HabitWidgetManager {
                 .commit()
     }
 
-    fun getHabitPosition(context: Context, widgetId: Int): Int {
+    fun getHabitPosition(context: Context, widgetId: Int): Int? {
         val habitId = context
                 .getSharedPreferences("habitWidget", 0)
                 .getString("$widgetId", "")
@@ -42,7 +42,7 @@ object HabitWidgetManager {
             }
         }
 
-        return 0
+        return null
     }
 
     fun removeWidget(context: Context, widgetId: Int) {
