@@ -17,7 +17,6 @@
 package com.pickth.habit.widget
 
 import android.content.Context
-import android.util.Log
 import com.pickth.habit.util.HabitManager
 
 /**
@@ -30,7 +29,6 @@ object HabitWidgetManager {
                 .edit()
                 .putString("$widgetId", habitId)
                 .commit()
-        Log.v("habit000", "add widget id : ${widgetId}")
     }
 
     fun getHabitPosition(context: Context, widgetId: Int): Int {
@@ -40,7 +38,6 @@ object HabitWidgetManager {
         var habits = HabitManager.getHabits(context)
         for(i in 0..habits.size - 1) {
             if(habits[i].id == habitId) {
-                Log.v("habit000", "get habit position : ${i}")
                 return i
             }
         }
