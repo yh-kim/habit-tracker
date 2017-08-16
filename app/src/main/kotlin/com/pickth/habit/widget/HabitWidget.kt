@@ -21,6 +21,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import com.pickth.habit.R
@@ -38,6 +39,7 @@ class HabitWidget: AppWidgetProvider() {
         val ACTION_CLICKED = "com.pickth.habit.CLICKED_"
 
         internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+            Log.v("habit000", "Update widgets")
             // bind
             var views = RemoteViews(context.packageName, R.layout.widget_habit)
 
@@ -82,6 +84,7 @@ class HabitWidget: AppWidgetProvider() {
      * 가장 먼저 호출
      */
     override fun onReceive(context: Context, intent: Intent) {
+        Log.v("habit000", "Widget onReceive")
         var views = RemoteViews(context.packageName, R.layout.widget_habit)
         if (intent.action.startsWith(ACTION_CLICKED)) {
             var id = intent.action.substring(ACTION_CLICKED.length).toInt()
@@ -131,6 +134,7 @@ class HabitWidget: AppWidgetProvider() {
      * 지금은 0이기 때문에 MainActivity에서 habit 클릭할 때마다 호출
      */
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+        Log.v("habit000", "Widget onUpdate")
         for(appWidgetId in appWidgetIds) updateAppWidget(context, appWidgetManager, appWidgetId)
     }
 
