@@ -21,10 +21,9 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
 import com.pickth.habit.util.HabitManager
@@ -58,8 +57,9 @@ class MainActivity: BaseActivity(), MainContract.View {
 
         mRecyclerView = rv_main.apply {
             adapter = mAdapter
-            layoutManager = GridLayoutManager(context, 2)
-            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            layoutManager = GridLayoutManager(context, 2)
+//            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
             recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)
         }
 
