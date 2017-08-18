@@ -23,6 +23,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
@@ -47,6 +48,7 @@ class MainActivity: BaseActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.d(TAG, "onCreate")
 
         // actionbar
         setSupportActionBar(main_toolbar)

@@ -24,4 +24,5 @@ import org.jetbrains.anko.AnkoLogger
  */
 
 open class BaseActivity: AppCompatActivity(), AnkoLogger {
+    val TAG = "HABIT-${javaClass.simpleName}"
 }
