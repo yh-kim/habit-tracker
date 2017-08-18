@@ -18,6 +18,8 @@ package com.pickth.habit.view.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.Gravity
@@ -45,6 +47,15 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener): Dial
 
         setContentView(R.layout.dialog_add_habit)
         btn_add_habit_submit.setOnClickListener(listener)
+
+        var editTitle = et_add_habit_title.background.apply {
+            setColorFilter(
+                    ContextCompat.getColor(context, R.color.colorWhite),
+                    PorterDuff.Mode.SRC_ATOP
+            )
+        }
+        if(Build.VERSION.SDK_INT > 16) et_add_habit_title.background = editTitle
+        else et_add_habit_title.setBackgroundDrawable(editTitle)
     }
 
     fun addHabit(): Habit? {

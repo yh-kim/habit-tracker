@@ -8,19 +8,34 @@
     android:focusableInTouchMode="true"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/et_add_habit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="습관의 제목을 입력하세요"
         android:inputType="text"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorWhite" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_add_habit_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorWhite"
+        android:padding="0dp"
         android:text="확인" />
 </LinearLayout>
