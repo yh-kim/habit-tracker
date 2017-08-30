@@ -43,6 +43,8 @@ class HabitWidget: AppWidgetProvider() {
             // bind
             var views = RemoteViews(context.packageName, R.layout.widget_habit)
 
+            views.setViewVisibility(R.id.pb_widget_loading, View.GONE)
+
             var position = HabitWidgetManager.getHabitPosition(context, appWidgetId)
 
             if(position == null) {

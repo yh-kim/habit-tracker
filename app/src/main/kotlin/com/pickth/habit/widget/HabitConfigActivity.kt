@@ -56,6 +56,8 @@ class HabitConfigActivity: BaseActivity() {
                         var habit = HabitManager.getHabits(applicationContext)[position]
                         HabitWidgetManager.addWidget(applicationContext, mAppWidgetId, habit.id)
 
+                        mRemoteView.setViewVisibility(R.id.pb_widget_loading, View.GONE)
+
                         // bind view
                         mRemoteView.setTextViewText(R.id.tv_widget_habit_title, habit.title)
                         if(!habit.days.isEmpty()) {
