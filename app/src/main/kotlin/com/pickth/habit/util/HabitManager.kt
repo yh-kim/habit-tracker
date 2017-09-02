@@ -28,6 +28,7 @@ import com.pickth.habit.view.main.adapter.Habit
 
 object HabitManager {
     private var mHabits = ArrayList<Habit>()
+    private val TAG = "HABIT__${javaClass.simpleName}"
 
     fun getHabits(context: Context): ArrayList<Habit> {
         if(mHabits.size == 0) {
@@ -48,7 +49,7 @@ object HabitManager {
         context.getSharedPreferences("habits", 0)
                 .edit()
                 .putString("habits", Gson().toJson(mHabits).toString())
-                .commit()
+                .apply()
     }
 
     fun addHabit(context: Context, habit: Habit) {
@@ -66,12 +67,12 @@ object HabitManager {
                 .getSharedPreferences("habits", 0)
                 .edit()
                 .clear()
-                .commit()
+                .apply()
     }
 
     fun logHabitStatus(context: Context) {
         for(i in getHabits(context)) {
-            Log.v("habit00", i.toString())
+            Log.v(TAG, i.toString())
         }
     }
 }

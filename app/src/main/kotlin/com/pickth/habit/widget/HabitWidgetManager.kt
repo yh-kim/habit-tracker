@@ -28,14 +28,14 @@ object HabitWidgetManager {
         context.getSharedPreferences("habitWidget", 0)
                 .edit()
                 .putString("$widgetId", habitId)
-                .commit()
+                .apply()
     }
 
     fun getHabitPosition(context: Context, widgetId: Int): Int? {
         val habitId = context
                 .getSharedPreferences("habitWidget", 0)
                 .getString("$widgetId", "")
-        var habits = HabitManager.getHabits(context)
+        val habits = HabitManager.getHabits(context)
         for(i in 0..habits.size - 1) {
             if(habits[i].id == habitId) {
                 return i

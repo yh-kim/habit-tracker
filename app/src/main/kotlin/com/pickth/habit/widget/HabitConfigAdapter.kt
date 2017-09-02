@@ -39,7 +39,7 @@ class HabitConfigAdapter: RecyclerView.Adapter<HabitConfigAdapter.HabitConfigVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): HabitConfigViewHolder {
-        var view = LayoutInflater.from(parent?.context)
+        val view = LayoutInflater.from(parent?.context)
                 .inflate(R.layout.item_habit_config, parent, false)
         return HabitConfigViewHolder(view, mListener)
     }

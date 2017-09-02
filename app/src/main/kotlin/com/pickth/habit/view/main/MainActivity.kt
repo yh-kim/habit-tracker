@@ -95,12 +95,12 @@ class MainActivity: BaseActivity(), MainContract.View {
     override fun getContext(): Context = this
 
     override fun updateWidget() {
-        var ids = AppWidgetManager
+        val ids = AppWidgetManager
                 .getInstance(this)
                 .getAppWidgetIds(
                         ComponentName(this, HabitWidget::class.java)
                 )
-        var intent = Intent(this, HabitWidget::class.java).apply {
+        val intent = Intent(this, HabitWidget::class.java).apply {
             action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
         }
