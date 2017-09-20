@@ -16,6 +16,8 @@
 
 package com.pickth.habit.view.main
 
+import android.util.Log
+import com.google.gson.Gson
 import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.util.HabitManager
 import com.pickth.habit.util.OnHabitClickListener
@@ -28,6 +30,8 @@ import com.pickth.habit.view.main.adapter.MainAdapterContract
  */
 
 class MainPresenter: MainContract.Presenter, OnHabitClickListener {
+
+    val TAG = MainPresenter::class.java.simpleName
 
     private lateinit var mView: MainContract.View
     private lateinit var mAdapterView: MainAdapterContract.View
@@ -82,4 +86,10 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
         mView.showAddHabitDialog()
 //        mView.scrollToLastItem()
     }
+
+    fun getHabitsWithJson(): String = Gson()
+            .toJson(
+                    HabitManager.getHabits(mView.getContext())
+            )
+            .toString()
 }

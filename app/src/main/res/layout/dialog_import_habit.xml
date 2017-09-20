@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/import_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorMain"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_import_habit_back"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_back" />
+
+        <ImageView
+            android:id="@+id/iv_import_habit_check"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_check"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+
+        <EditText
+            android:id="@+id/et_import_habits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_habits_info"
+            android:maxLines="5" />
+
+        <Button
+            android:id="@+id/btn_get_habits_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/get_habits_info" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_get_habits"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:overScrollMode="never" />
+
+        <TextView
+            android:id="@+id/tv_get_habits_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="지우고 싶은 습관은 꾹 눌러 삭제하세요"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

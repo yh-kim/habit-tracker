@@ -29,6 +29,7 @@ import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
 import com.pickth.habit.util.HabitManager
 import com.pickth.habit.view.dialog.AddHabitDialog
+import com.pickth.habit.view.dialog.ImportHabitDialog
 import com.pickth.habit.view.main.adapter.MainAdapter
 import com.pickth.habit.widget.HabitWidget
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,6 +45,7 @@ class MainActivity: BaseActivity(), MainContract.View {
     private lateinit var mAdapter: MainAdapter
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var addHabitDialog: AddHabitDialog
+    private lateinit var importHabitDialog: ImportHabitDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,6 +124,18 @@ class MainActivity: BaseActivity(), MainContract.View {
                 }
 
                 startActivity(habitShareIntent)
+            }
+            R.id.habit_import -> {
+                importHabitDialog = ImportHabitDialog(this, View.OnClickListener {
+                    val habit = importHabitDialog.getHabits()
+                    if(habit != null) {
+                        for(item in habit) {
+                            mPresenter.addHabitItem(item)
+                        }
+                    }
+
+                })
+                importHabitDialog.show()
             }
         }
 

@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Habit</string>
 
+    <string name="export_habit">Export habit</string>
+    <string name="import_habit">Import habit</string>
 
-    <string name="habit_export">Export habit</string>
+    <!-- import habit -->
+    <string name="get_habits_info">Get habits info</string>
+    <string name="input_habits_info">Input exported habits info</string>
 </resources>
