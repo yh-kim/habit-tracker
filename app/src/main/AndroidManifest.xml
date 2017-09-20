@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".widget.HabitConfigActivity"
-            android:theme="@style/AppTheme.NoTitle.TransLucent">
+            android:theme="@style/AppTheme.NoTitle.Translucent">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>

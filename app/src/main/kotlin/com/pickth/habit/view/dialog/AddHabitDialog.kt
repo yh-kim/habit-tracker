@@ -35,7 +35,7 @@ import java.util.*
  * Created by yonghoon on 2017-08-14
  */
 
-class AddHabitDialog(context: Context, val listener: View.OnClickListener): Dialog(context, R.style.AppTheme_NoTitle_TransLucent) {
+class AddHabitDialog(context: Context, val listener: View.OnClickListener): Dialog(context, R.style.AppTheme_NoTitle_Translucent) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,11 +66,11 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener): Dial
             return null
         }
 
-        var havit = Habit(UUID.randomUUID().toString(),
+        var habit = Habit(UUID.randomUUID().toString(),
                 title,
                 ContextCompat.getColor(context, R.color.colorAccent)
         )
         dismiss()
-        return havit
+        return habit
     }
 }

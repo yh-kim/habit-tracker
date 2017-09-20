@@ -17,13 +17,13 @@
 package com.pickth.habit.view.main
 
 import android.appwidget.AppWidgetManager
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
@@ -105,5 +105,26 @@ class MainActivity: BaseActivity(), MainContract.View {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
         }
         sendBroadcast(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.habit_export -> {
+                val habitShareIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, mPresenter.getHabitsWithJson())
+                    type = "text/plain"
+                }
+
+                startActivity(habitShareIntent)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

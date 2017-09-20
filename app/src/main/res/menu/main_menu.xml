@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gachi="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/habit_export"
+        android:title="@string/habit_export"
+        gachi:showAsAction="collapseActionView" />
+</menu>
