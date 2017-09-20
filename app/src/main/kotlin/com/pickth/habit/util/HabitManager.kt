@@ -53,12 +53,12 @@ object HabitManager {
     }
 
     fun addHabit(context: Context, habit: Habit) {
-        mHabits.add(habit)
+        getHabits(context).add(habit)
         notifyDataSetChanged(context)
     }
 
     fun removeHabit(context: Context, position: Int) {
-        mHabits.removeAt(position)
+        getHabits(context).removeAt(position)
         notifyDataSetChanged(context)
     }
 
