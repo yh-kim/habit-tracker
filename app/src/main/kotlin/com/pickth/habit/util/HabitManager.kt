@@ -28,7 +28,7 @@ import com.pickth.habit.view.main.adapter.Habit
 
 object HabitManager {
     private var mHabits = ArrayList<Habit>()
-    private val TAG = "HABIT__${javaClass.simpleName}"
+    val TAG = "${javaClass.simpleName}"
 
     fun getHabits(context: Context): ArrayList<Habit> {
         if(mHabits.size == 0) {

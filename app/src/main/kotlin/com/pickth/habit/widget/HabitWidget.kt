@@ -33,13 +33,14 @@ import com.pickth.habit.util.StringUtil
  */
 
 class HabitWidget: AppWidgetProvider() {
+    val TAG = "${javaClass.simpleName}"
 
     companion object {
         val HABIT_CLICK = "android.action.HABIT_CLICK"
         val ACTION_CLICKED = "com.pickth.habit.CLICKED_"
 
         internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            Log.v("habit000", "Update widgets")
+            Log.v(HabitWidget.javaClass.simpleName, "Update widgets")
             // bind
             val views = RemoteViews(context.packageName, R.layout.widget_habit)
 
@@ -86,7 +87,7 @@ class HabitWidget: AppWidgetProvider() {
      * 가장 먼저 호출
      */
     override fun onReceive(context: Context, intent: Intent) {
-        Log.v("habit000", "Widget onReceive")
+        Log.v(TAG, "Widget onReceive")
         var views = RemoteViews(context.packageName, R.layout.widget_habit)
         if (intent.action.startsWith(ACTION_CLICKED)) {
             var id = intent.action.substring(ACTION_CLICKED.length).toInt()
@@ -136,7 +137,7 @@ class HabitWidget: AppWidgetProvider() {
      * 지금은 0이기 때문에 MainActivity에서 habit 클릭할 때마다 호출
      */
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        Log.v("habit000", "Widget onUpdate")
+        Log.v(TAG, "Widget onUpdate")
         for(appWidgetId in appWidgetIds) updateAppWidget(context, appWidgetManager, appWidgetId)
     }
 

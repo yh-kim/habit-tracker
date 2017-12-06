@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fl_widget_habit"
-    android:padding="2dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:padding="4dp"
+    android:layout_width="70dp"
+    android:layout_height="76dp">
     <ImageView
         android:id="@+id/iv_widget_habit_background"
         android:layout_width="match_parent"

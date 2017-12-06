@@ -31,7 +31,7 @@ import com.pickth.habit.view.main.adapter.MainAdapterContract
 
 class MainPresenter: MainContract.Presenter, OnHabitClickListener {
 
-    val TAG = MainPresenter::class.java.simpleName
+    val TAG = "${javaClass.simpleName}"
 
     private lateinit var mView: MainContract.View
     private lateinit var mAdapterView: MainAdapterContract.View
