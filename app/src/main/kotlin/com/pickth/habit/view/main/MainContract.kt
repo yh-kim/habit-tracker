@@ -41,5 +41,6 @@ interface MainContract {
         fun addHabitItem(item: Habit)
         fun addHabitItems(list: ArrayList<Habit>)
         fun getItemCount(): Int
+        fun refreshAllData()
     }
 }

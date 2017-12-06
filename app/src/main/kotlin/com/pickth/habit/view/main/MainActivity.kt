@@ -34,6 +34,13 @@ import com.pickth.habit.view.main.adapter.MainAdapter
 import com.pickth.habit.widget.HabitWidget
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
+import android.widget.Toast
+import android.system.Os.link
+import android.content.ClipData
+import android.content.Context.CLIPBOARD_SERVICE
+import android.support.v7.widget.GridLayoutManager
+import com.pickth.gachi.util.GridSpacingItemDecoration
+
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -46,6 +53,20 @@ class MainActivity: BaseActivity(), MainContract.View {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var addHabitDialog: AddHabitDialog
     private lateinit var importHabitDialog: ImportHabitDialog
+//    private val filter: IntentFilter by lazy {
+//        IntentFilter().apply { addAction(Intent.ACTION_DATE_CHANGED) }
+//    }
+//    private val mChangeDateBroadcastReceiver: BroadcastReceiver by lazy {
+//        object: BroadcastReceiver() {
+//            override fun onReceive(p0: Context, p1: Intent) {
+//                when(p1.action) {
+//                    Intent.ACTION_TIME_CHANGED -> {
+//                        mPresenter.refreshAllData()
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +82,9 @@ class MainActivity: BaseActivity(), MainContract.View {
 
         mRecyclerView = rv_main.apply {
             adapter = mAdapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            layoutManager = GridLayoutManager(context, 2)
-//            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
+//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = GridLayoutManager(context, 2)
+            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
             recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)
         }
 
@@ -109,6 +130,16 @@ class MainActivity: BaseActivity(), MainContract.View {
         sendBroadcast(intent)
     }
 
+//    override fun onResume() {
+//        super.onResume()
+//        registerReceiver(mChangeDateBroadcastReceiver, filter)
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        unregisterReceiver(mChangeDateBroadcastReceiver)
+//    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -117,9 +148,17 @@ class MainActivity: BaseActivity(), MainContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.habit_export -> {
+                val habits = mPresenter.getHabitsWithJson()
+
+                // 복사
+                val clipboardManager = this.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("label", habits)
+                clipboardManager.primaryClip = clipData
+
+                // 공유
                 val habitShareIntent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, mPresenter.getHabitsWithJson())
+                    putExtra(Intent.EXTRA_TEXT, habits)
                     type = "text/plain"
                 }
 

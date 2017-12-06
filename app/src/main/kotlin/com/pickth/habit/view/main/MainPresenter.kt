@@ -71,6 +71,11 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
 
     override fun onItemUnCheck(position: Int) {
         mAdapterModel.notifyChanged(position)
+
+        if(mAdapterModel.getItem(position).days[0] == StringUtil.getCurrentDay()) {
+
+        }
+
         mAdapterModel.getItem(position).days.removeAt(0)
 
         HabitManager.notifyDataSetChanged(mView.getContext())
@@ -85,6 +90,15 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
     override fun onLastItemClick() {
         mView.showAddHabitDialog()
 //        mView.scrollToLastItem()
+    }
+
+    override fun refreshAllData() {
+        Log.v(TAG, "refreshAllData")
+        for(i in 0..getItemCount()-1) {
+            mAdapterModel.notifyChanged(i)
+        }
+
+        mView.updateWidget()
     }
 
     fun getHabitsWithJson(): String = Gson()
