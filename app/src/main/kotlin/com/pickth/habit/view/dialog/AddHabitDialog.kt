@@ -26,7 +26,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import com.pickth.habit.R
-import com.pickth.habit.view.main.adapter.Habit
+import com.pickth.habit.view.main.adapter.item.Habit
 import kotlinx.android.synthetic.main.dialog_add_habit.*
 import org.jetbrains.anko.alert
 import java.util.*
@@ -35,7 +35,9 @@ import java.util.*
  * Created by yonghoon on 2017-08-14
  */
 
-class AddHabitDialog(context: Context, val listener: View.OnClickListener): Dialog(context, R.style.AppTheme_NoTitle_Translucent) {
+class AddHabitDialog(context: Context, val listener: View.OnClickListener, val test: String, val habit: Habit?): Dialog(context, R.style.AppTheme_NoTitle_Translucent) {
+    constructor(context: Context, listener: View.OnClickListener) : this(context, listener, "", null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,6 +49,7 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener): Dial
 
         setContentView(R.layout.dialog_add_habit)
         btn_add_habit_submit.setOnClickListener(listener)
+        et_add_habit_title.setText(test)
 
         var editTitle = et_add_habit_title.background.apply {
             setColorFilter(
@@ -66,10 +69,22 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener): Dial
             return null
         }
 
-        var habit = Habit(UUID.randomUUID().toString(),
+        var newHabit = Habit(UUID.randomUUID().toString(),
                 title,
                 ContextCompat.getColor(context, R.color.colorAccent)
         )
+        dismiss()
+        return newHabit
+    }
+
+    fun modifyHabit(): Habit? {
+        var title = et_add_habit_title.text.toString()
+        if(title == "") {
+            // 제목을 안지었을 때
+            context.alert("제목을 입력하세요").show()
+            return null
+        }
+        habit?.title = title
         dismiss()
         return habit
     }

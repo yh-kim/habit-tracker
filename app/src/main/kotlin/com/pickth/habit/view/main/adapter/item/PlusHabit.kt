@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.pickth.habit.view.main.adapter
+package com.pickth.habit.view.main.adapter.item
+
+import com.pickth.habit.view.main.adapter.item.Habit
 
 /**
- * Created by yonghoon on 2017-08-09
+ * Created by yonghoon on 2017-12-11
+ * Blog   : http://blog.pickth.com
  */
 
-data class Habit(var id: String, var title: String, var color: Int, var days: ArrayList<String>, var isLast: Boolean) {
-    // Use plus button
-    constructor(): this("", "", 0, ArrayList(), true)
-    // Use add habit
-    constructor(id: String, title: String, color: Int): this(id, title, color, ArrayList(), false)
-}
+class PlusHabit: Habit()

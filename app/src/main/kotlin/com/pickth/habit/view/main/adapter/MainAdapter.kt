@@ -21,6 +21,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.pickth.habit.R
 import com.pickth.habit.util.OnHabitClickListener
+import com.pickth.habit.view.main.adapter.item.Habit
+import com.pickth.habit.view.main.adapter.item.PlusHabit
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -34,7 +36,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     }
 
     private var mItems = ArrayList<Habit>().apply {
-        add(Habit())
+        add(PlusHabit())
     }
     private lateinit var mListener: OnHabitClickListener
 
@@ -84,6 +86,11 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount)
         return true
+    }
+
+    override fun changeItem(position: Int, habit: Habit) {
+        mItems[position] = habit
+        notifyChanged(position)
     }
 
     override fun notifyChanged(position: Int) {

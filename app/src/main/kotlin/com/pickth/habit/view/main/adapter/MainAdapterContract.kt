@@ -17,6 +17,7 @@
 package com.pickth.habit.view.main.adapter
 
 import com.pickth.habit.util.OnHabitClickListener
+import com.pickth.habit.view.main.adapter.item.Habit
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -33,6 +34,7 @@ interface MainAdapterContract {
         fun addItems(list: ArrayList<Habit>)
         fun getItem(position: Int): Habit
         fun removeItem(position: Int): Boolean
+        fun changeItem(position: Int, habit: Habit)
         fun notifyChanged(position: Int)
     }
 }

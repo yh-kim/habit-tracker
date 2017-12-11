@@ -20,7 +20,7 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.pickth.habit.view.main.adapter.Habit
+import com.pickth.habit.view.main.adapter.item.Habit
 
 /**
  * Created by yonghoon on 2017-08-13

@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package com.pickth.habit.util
-
-import com.pickth.habit.view.main.adapter.item.Habit
+package com.pickth.habit.view.main.adapter.item
 
 /**
- * Created by yonghoon on 2017-08-10
+ * Created by yonghoon on 2017-08-09
  */
 
-interface OnHabitClickListener {
-    fun onItemCheck(position: Int)
-    fun onItemUnCheck(position: Int)
-    fun onItemLongClick(position: Int)
-    fun onItemModify(position: Int, habit: Habit)
-    fun onLastItemClick()
+open class Habit(var id: String, var title: String, var color: Int, var days: ArrayList<String>) {
+    // Use plus button
+    constructor(): this("", "", 0, ArrayList())
+    // Use add habit
+    constructor(id: String, title: String, color: Int): this(id, title, color, ArrayList())
 }

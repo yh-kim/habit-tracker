@@ -40,6 +40,7 @@ import android.content.ClipData
 import android.content.Context.CLIPBOARD_SERVICE
 import android.support.v7.widget.GridLayoutManager
 import com.pickth.gachi.util.GridSpacingItemDecoration
+import com.pickth.habit.view.main.adapter.item.Habit
 
 
 /**
@@ -108,6 +109,13 @@ class MainActivity: BaseActivity(), MainContract.View {
                 mPresenter.addHabitItem(it)
             }
         })
+        addHabitDialog.show()
+    }
+
+    override fun showModifyHabitDialog(position: Int, habit: Habit) {
+        addHabitDialog = AddHabitDialog(this, View.OnClickListener {
+            mPresenter.changeItem(position, addHabitDialog.modifyHabit()!!)
+        }, habit.title, habit)
         addHabitDialog.show()
     }
 

@@ -26,16 +26,18 @@ import com.pickth.habit.extensions.setHideAlphaAnimation
 import com.pickth.habit.extensions.setShowAlphaAnimation
 import com.pickth.habit.util.OnHabitClickListener
 import com.pickth.habit.util.StringUtil
+import com.pickth.habit.view.dialog.AddHabitDialog
+import com.pickth.habit.view.main.adapter.item.Habit
+import com.pickth.habit.view.main.adapter.item.PlusHabit
 import kotlinx.android.synthetic.main.item_habit.view.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.yesButton
+import org.jetbrains.anko.*
 
 /**
  * Created by yonghoon on 2017-08-09
  */
 
 class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerView.ViewHolder(view) {
+    private lateinit var addHabitDialog: AddHabitDialog
 
     fun onBind(item: Habit, position: Int) {
         with(itemView) {
@@ -50,7 +52,7 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
                     }
 
             // itemView is plus button
-            if (item.isLast) {
+            if (item is PlusHabit) {
                 tv_item_habit_title.visibility = View.GONE
                 tv_item_habit_day.visibility = View.GONE
                 iv_item_habit_last.visibility = View.VISIBLE
@@ -93,10 +95,20 @@ class MainViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerV
                 }
 
                 setOnLongClickListener {
-                    context.alert("정말 삭제하시겠습니까?") {
-                        yesButton { listener.onItemLongClick(position) }
-                        noButton { }
-                    }.show()
+                    val longClickItem = listOf("수정", "삭제", "취소")
+                    context.selector(null, longClickItem, {
+                        _,
+                        i -> when(i) {
+                            0 -> {
+                                listener.onItemModify(position, item)
+                             }
+                            1 -> context.alert("정말 삭제하시겠습니까?") {
+                                        yesButton { listener.onItemLongClick(position) }
+                                        noButton { }
+                            }.show()
+                        }
+                    })
+
                     true
                 }
             }

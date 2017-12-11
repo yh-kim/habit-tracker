@@ -22,7 +22,7 @@ import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.util.HabitManager
 import com.pickth.habit.util.OnHabitClickListener
 import com.pickth.habit.util.StringUtil
-import com.pickth.habit.view.main.adapter.Habit
+import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.MainAdapterContract
 
 /**
@@ -87,9 +87,18 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
         HabitManager.removeHabit(mView.getContext(), position)
     }
 
+    override fun onItemModify(position: Int, habit: Habit) {
+        mView.showModifyHabitDialog(position, habit)
+    }
+
     override fun onLastItemClick() {
         mView.showAddHabitDialog()
 //        mView.scrollToLastItem()
+    }
+
+    override fun changeItem(position: Int, habit: Habit) {
+        mAdapterModel.changeItem(position, habit)
+        HabitManager.notifyDataSetChanged(mView.getContext())
     }
 
     override fun refreshAllData() {

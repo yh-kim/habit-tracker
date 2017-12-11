@@ -21,7 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pickth.habit.R
-import com.pickth.habit.view.main.adapter.Habit
+import com.pickth.habit.view.main.adapter.item.Habit
 import kotlinx.android.synthetic.main.item_habit_config.view.*
 import org.jetbrains.anko.backgroundColor
 

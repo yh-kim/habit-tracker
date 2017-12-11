@@ -27,14 +27,12 @@ import android.view.inputmethod.InputMethodManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.pickth.habit.R
-import com.pickth.habit.util.HabitManager
 import com.pickth.habit.util.OnHabitClickListener
-import com.pickth.habit.view.main.adapter.Habit
+import com.pickth.habit.view.main.adapter.item.Habit
 import kotlinx.android.synthetic.main.dialog_import_habit.*
 import org.jetbrains.anko.toast
 import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
 import java.util.*
 
 /**
@@ -53,6 +51,9 @@ class ImportHabitDialog(context: Context, val listener: View.OnClickListener): D
 
         mAdapter = ImportHabitAdapter().apply {
             setOnHabitClickListener(object: OnHabitClickListener {
+                override fun onItemModify(position: Int, habit: Habit) {
+                }
+
                 override fun onItemCheck(position: Int) {
                 }
 

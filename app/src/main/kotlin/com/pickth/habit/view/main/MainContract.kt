@@ -19,7 +19,7 @@ package com.pickth.habit.view.main
 import android.content.Context
 import com.pickth.habit.base.mvp.BasePresenter
 import com.pickth.habit.base.mvp.BaseView
-import com.pickth.habit.view.main.adapter.Habit
+import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.MainAdapterContract
 
 /**
@@ -30,6 +30,7 @@ interface MainContract {
     interface View: BaseView<Presenter> {
         fun showToast(msg: String)
         fun showAddHabitDialog()
+        fun showModifyHabitDialog(position: Int, habit: Habit)
         fun scrollToLastItem()
         fun getContext(): Context
         fun updateWidget()
@@ -41,6 +42,7 @@ interface MainContract {
         fun addHabitItem(item: Habit)
         fun addHabitItems(list: ArrayList<Habit>)
         fun getItemCount(): Int
+        fun changeItem(position: Int, habit: Habit)
         fun refreshAllData()
     }
 }
