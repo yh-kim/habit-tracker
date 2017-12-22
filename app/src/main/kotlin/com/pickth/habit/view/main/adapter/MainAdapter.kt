@@ -20,9 +20,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.pickth.habit.R
-import com.pickth.habit.util.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitDragListener
+import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.item.PlusHabit
+import java.util.*
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -39,17 +42,18 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
         add(PlusHabit())
     }
     private lateinit var mListener: OnHabitClickListener
+    private lateinit var mDragListener: OnHabitDragListener
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainViewHolder {
         val itemView = LayoutInflater
                 .from(parent?.context)
                 .inflate(R.layout.item_habit, parent, false)
 
-        return MainViewHolder(itemView, mListener)
+        return MainViewHolder(itemView, mListener, mDragListener)
     }
 
-    override fun onBindViewHolder(holder: MainViewHolder?, position: Int) {
-        holder?.onBind(mItems[position], position)
+    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+        holder.onBind(mItems[position], position)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -65,6 +69,10 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 
     override fun setOnHabitClickListener(listener: OnHabitClickListener) {
         mListener = listener
+    }
+
+    override fun setOnHabitDragListener(listener: OnHabitDragListener) {
+        mDragListener = listener
     }
 
     override fun addItem(item: Habit) {
@@ -91,6 +99,11 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     override fun changeItem(position: Int, habit: Habit) {
         mItems[position] = habit
         notifyChanged(position)
+    }
+
+    override fun swapItem(startPosition: Int, endPosition: Int) {
+        Collections.swap(mItems, startPosition, endPosition)
+        notifyItemMoved(startPosition, endPosition)
     }
 
     override fun notifyChanged(position: Int) {

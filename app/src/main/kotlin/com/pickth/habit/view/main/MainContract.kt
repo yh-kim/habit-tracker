@@ -17,6 +17,7 @@
 package com.pickth.habit.view.main
 
 import android.content.Context
+import android.support.v7.widget.helper.ItemTouchHelper
 import com.pickth.habit.base.mvp.BasePresenter
 import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.view.main.adapter.item.Habit
@@ -39,8 +40,10 @@ interface MainContract {
     interface Presenter: BasePresenter {
         fun setAdapterView(view: MainAdapterContract.View)
         fun setAdapterModel(model: MainAdapterContract.Model)
+        fun setTouchHelper(habitTouchHelper: ItemTouchHelper)
         fun addHabitItem(item: Habit)
         fun addHabitItems(list: ArrayList<Habit>)
+        fun moveHabitItem(startPosition: Int, endPosition: Int)
         fun getItemCount(): Int
         fun changeItem(position: Int, habit: Habit)
         fun refreshAllData()

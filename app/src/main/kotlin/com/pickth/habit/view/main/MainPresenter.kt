@@ -16,26 +16,31 @@
 
 package com.pickth.habit.view.main
 
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import com.google.gson.Gson
 import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.util.HabitManager
-import com.pickth.habit.util.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitDragListener
+import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.util.StringUtil
 import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.MainAdapterContract
+import com.pickth.habit.view.main.adapter.MainViewHolder
 
 /**
  * Created by yonghoon on 2017-08-09
  */
 
-class MainPresenter: MainContract.Presenter, OnHabitClickListener {
+class MainPresenter: MainContract.Presenter, OnHabitClickListener, OnHabitDragListener {
 
     val TAG = "${javaClass.simpleName}"
 
     private lateinit var mView: MainContract.View
     private lateinit var mAdapterView: MainAdapterContract.View
     private lateinit var mAdapterModel: MainAdapterContract.Model
+    private lateinit var mHabitTouchHelper: ItemTouchHelper
 
     override fun attachView(view: BaseView<*>) {
         mView = view as MainContract.View
@@ -44,10 +49,15 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
     override fun setAdapterView(view: MainAdapterContract.View) {
         mAdapterView = view
         mAdapterView.setOnHabitClickListener(this)
+        mAdapterView.setOnHabitDragListener(this)
     }
 
     override fun setAdapterModel(model: MainAdapterContract.Model) {
         mAdapterModel = model
+    }
+
+    override fun setTouchHelper(habitTouchHelper: ItemTouchHelper) {
+        mHabitTouchHelper = habitTouchHelper
     }
 
     override fun getItemCount(): Int = mAdapterModel.getItemCount() - 1
@@ -59,6 +69,16 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
 
     override fun addHabitItems(list: ArrayList<Habit>) {
         mAdapterModel.addItems(list)
+    }
+
+    override fun moveHabitItem(startPosition: Int, endPosition: Int) {
+        // 마지막 아이템이면
+        if(mAdapterModel.getItemCount() - 1 == endPosition) {
+            return
+        }
+
+        mAdapterModel.swapItem(startPosition, endPosition)
+        HabitManager.notifyDataSetChanged(mView.getContext())
     }
 
     override fun onItemCheck(position: Int) {
@@ -115,4 +135,8 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener {
                     HabitManager.getHabits(mView.getContext())
             )
             .toString()
+
+    override fun onStartDrag(holder: MainViewHolder) {
+        mHabitTouchHelper.startDrag(holder)
+    }
 }

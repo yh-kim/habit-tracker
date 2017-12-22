@@ -19,7 +19,6 @@ package com.pickth.habit.view.main
 import android.appwidget.AppWidgetManager
 import android.content.*
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
@@ -34,12 +33,12 @@ import com.pickth.habit.view.main.adapter.MainAdapter
 import com.pickth.habit.widget.HabitWidget
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
-import android.widget.Toast
-import android.system.Os.link
 import android.content.ClipData
-import android.content.Context.CLIPBOARD_SERVICE
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.helper.ItemTouchHelper
 import com.pickth.gachi.util.GridSpacingItemDecoration
+import com.pickth.habit.listener.OnHabitMoveListener
+import com.pickth.habit.util.HabitTouchHelperCallback
 import com.pickth.habit.view.main.adapter.item.Habit
 
 
@@ -54,6 +53,7 @@ class MainActivity: BaseActivity(), MainContract.View {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var addHabitDialog: AddHabitDialog
     private lateinit var importHabitDialog: ImportHabitDialog
+    private lateinit var mHabitTouchHelper: ItemTouchHelper
 //    private val filter: IntentFilter by lazy {
 //        IntentFilter().apply { addAction(Intent.ACTION_DATE_CHANGED) }
 //    }
@@ -89,11 +89,19 @@ class MainActivity: BaseActivity(), MainContract.View {
             recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)
         }
 
+        mHabitTouchHelper = ItemTouchHelper(HabitTouchHelperCallback(object: OnHabitMoveListener {
+            override fun onItemMove(startPosition: Int, endPosition: Int) {
+                mPresenter.moveHabitItem(startPosition, endPosition)
+            }
+        }))
+        mHabitTouchHelper.attachToRecyclerView(mRecyclerView)
+
         // presenter
         mPresenter = MainPresenter().apply {
             attachView(this@MainActivity)
             setAdapterView(mAdapter)
             setAdapterModel(mAdapter)
+            setTouchHelper(mHabitTouchHelper)
 
             addHabitItems(HabitManager.getHabits(this@MainActivity))
         }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.pickth.habit.util
+package com.pickth.habit.listener
 
 import com.pickth.habit.view.main.adapter.item.Habit
 

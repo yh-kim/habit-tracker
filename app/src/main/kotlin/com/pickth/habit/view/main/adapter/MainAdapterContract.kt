@@ -16,7 +16,8 @@
 
 package com.pickth.habit.view.main.adapter
 
-import com.pickth.habit.util.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitDragListener
 import com.pickth.habit.view.main.adapter.item.Habit
 
 /**
@@ -26,6 +27,7 @@ import com.pickth.habit.view.main.adapter.item.Habit
 interface MainAdapterContract {
     interface View {
         fun setOnHabitClickListener(listener: OnHabitClickListener)
+        fun setOnHabitDragListener(listener: OnHabitDragListener)
     }
 
     interface Model {
@@ -35,6 +37,7 @@ interface MainAdapterContract {
         fun getItem(position: Int): Habit
         fun removeItem(position: Int): Boolean
         fun changeItem(position: Int, habit: Habit)
+        fun swapItem(startPosition: Int, endPosition: Int)
         fun notifyChanged(position: Int)
     }
 }
