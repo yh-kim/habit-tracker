@@ -16,6 +16,9 @@
 
 package com.pickth.habit.view.dialog
 
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -90,6 +93,12 @@ class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitVie
     class ImportHabitViewHolder(view: View, val listener: OnHabitTouchListener) : RecyclerView.ViewHolder(view) {
         fun onBind(item: Habit, position: Int) {
             with(itemView) {
+                val back = iv_item_habit_background.background as LayerDrawable
+                (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
+                        .run {
+                            setColor(item.color)
+                        }
+
                 tv_item_habit_title.text = item.title
                 iv_item_habit_select.visibility = View.GONE
 
