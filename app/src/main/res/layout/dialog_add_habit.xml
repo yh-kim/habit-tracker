@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="습관의 제목을 입력하세요"
+        android:hint="@string/input_habit_name"
         android:inputType="text"
         android:maxLines="1"
         android:textColor="@color/colorWhite"
@@ -37,5 +37,5 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorWhite"
         android:padding="0dp"
-        android:text="확인" />
+        android:text="@string/confirm_habit" />
 </LinearLayout>

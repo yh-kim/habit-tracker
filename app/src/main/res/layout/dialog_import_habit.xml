@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="지우고 싶은 습관은 꾹 눌러 삭제하세요"
+            android:text="@string/select_remove_habit"
             android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

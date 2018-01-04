@@ -196,7 +196,7 @@ class MainActivity: BaseActivity(), MainContract.View {
                 importHabitDialog.show()
             }
             R.id.habit_remove_all -> {
-                getContext().alert("정말 삭제하시겠습니까?") {
+                getContext().alert(getString(R.string.check_delete)) {
                     yesButton { mPresenter.clearHabitItems() }
                     noButton { }
                 }.show()

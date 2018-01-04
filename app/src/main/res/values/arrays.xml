@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="habit_actions">
+        <item>@string/action_move</item>
+        <item>@string/action_modify</item>
+        <item>@string/action_remove</item>
+        <item>@string/action_cancel</item>
+    </string-array>
+</resources>

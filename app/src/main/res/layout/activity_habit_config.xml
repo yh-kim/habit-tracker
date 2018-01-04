@@ -8,7 +8,7 @@
     android:background="@color/colorWhite">
 
     <TextView
-        android:text="습관을 선택하세요"
+        android:text="@string/select_habit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

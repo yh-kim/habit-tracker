@@ -16,6 +16,7 @@
 
 package com.pickth.habit.util
 
+import android.support.v4.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,9 +40,10 @@ object StringUtil {
         // 시
         result /= 24
 
-        if(result.toInt() == 0) {
-            return "오늘"
-        }
-        return "${result.toString()}일 전"
+        return result.toString()
+//        if(result.toInt() == 0) {
+//            return "오늘"
+//        }
+//        return "${result}일 전"
     }
 }

@@ -1,12 +1,33 @@
 <resources>
     <string name="app_name">습관</string>
 
-
     <string name="export_habit">습관 내보내기</string>
     <string name="import_habit">습관 가져오기</string>
     <string name="remove_all_habits">모든 습관 지우기</string>
 
+    <!-- common -->
+    <string name="action_move">이동</string>
+    <string name="action_modify">수정</string>
+    <string name="action_remove">삭제</string>
+    <string name="action_cancel">취소</string>
+
+    <string name="check_delete">정말 삭제하시겠습니까?</string>
+    <string name="check_cancel">정말 취소하시겠습니까?</string>
+    <string name="move_habit">습관을 이동시켜주세요</string>
+
+    <!-- habit -->
+    <string name="habit_today">오늘</string>
+    <string name="habit_days_ago">일 전</string>
+
+    <!-- add habit -->
+    <string name="input_habit_name">습관의 이름을 입력하세요</string>
+    <string name="confirm_habit">확인</string>
+
     <!-- import habit -->
     <string name="get_habits_info">습관들 정보 가져오기</string>
     <string name="input_habits_info">내보낸 습관들의 정보를 입력해주세요</string>
+    <string name="select_remove_habit">지우고 싶은 습관은 꾹 눌러 삭제하세요</string>
+
+    <!-- config habit -->
+    <string name="select_habit">습관을 선택하세요</string>
 </resources>

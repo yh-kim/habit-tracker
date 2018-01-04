@@ -1,11 +1,33 @@
 <resources>
     <string name="app_name">Habit</string>
 
-    <string name="export_habit">Export habit</string>
-    <string name="import_habit">Import habit</string>
+    <string name="export_habit">Export habits</string>
+    <string name="import_habit">Import habits</string>
     <string name="remove_all_habits">Remove all habits</string>
+
+    <!-- common -->
+    <string name="action_move">Move</string>
+    <string name="action_modify">Modify</string>
+    <string name="action_remove">Remove</string>
+    <string name="action_cancel">Cancel</string>
+
+    <string name="check_delete">Want to delete?</string>
+    <string name="check_cancel">Want to cancel?</string>
+    <string name="move_habit">Please move habit</string>
+
+    <!-- habit -->
+    <string name="habit_today">today</string>
+    <string name="habit_days_ago">days ago</string>
+
+    <!-- add habit -->
+    <string name="input_habit_name">Enter habit name</string>
+    <string name="confirm_habit">Confirm</string>
 
     <!-- import habit -->
     <string name="get_habits_info">Get habits info</string>
     <string name="input_habits_info">Input exported habits info</string>
+    <string name="select_remove_habit">Delete the habit you want to delete by pressing</string>
+
+    <!-- config habit -->
+    <string name="select_habit">Select habit</string>
 </resources>
