@@ -3,6 +3,7 @@
 
     <string name="export_habit">Export habit</string>
     <string name="import_habit">Import habit</string>
+    <string name="remove_all_habits">Remove all habits</string>
 
     <!-- import habit -->
     <string name="get_habits_info">Get habits info</string>

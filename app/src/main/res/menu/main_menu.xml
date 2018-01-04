@@ -9,4 +9,8 @@
         android:id="@+id/habit_import"
         android:title="@string/import_habit"
         gachi:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/habit_remove_all"
+        android:title="@string/remove_all_habits"
+        gachi:showAsAction="collapseActionView" />
 </menu>

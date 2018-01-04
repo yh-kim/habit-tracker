@@ -43,6 +43,7 @@ interface MainContract {
         fun setTouchHelper(habitTouchHelper: ItemTouchHelper)
         fun addHabitItem(item: Habit)
         fun addHabitItems(list: ArrayList<Habit>)
+        fun clearHabitItems()
         fun moveHabitItem(startPosition: Int, endPosition: Int)
         fun getItemCount(): Int
         fun changeItem(position: Int, habit: Habit)

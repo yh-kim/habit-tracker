@@ -20,12 +20,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.pickth.habit.R
-import com.pickth.habit.listener.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.listener.OnHabitDragListener
-import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.item.PlusHabit
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -41,7 +41,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     private var mItems = ArrayList<Habit>().apply {
         add(PlusHabit())
     }
-    private lateinit var mListener: OnHabitClickListener
+    private lateinit var mListener: OnHabitTouchListener
     private lateinit var mDragListener: OnHabitDragListener
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainViewHolder {
@@ -67,7 +67,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 
     override fun getItemCount(): Int = mItems.size
 
-    override fun setOnHabitClickListener(listener: OnHabitClickListener) {
+    override fun setOnHabitClickListener(listener: OnHabitTouchListener) {
         mListener = listener
     }
 
@@ -87,6 +87,8 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 
     override fun getItem(position: Int): Habit = mItems[position]
 
+    override fun getItems(): ArrayList<Habit> = mItems
+
     override fun removeItem(position: Int): Boolean {
         if(mItems.isEmpty()) return false
 
@@ -94,6 +96,12 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount)
         return true
+    }
+
+    override fun removeAllItems() {
+        mItems.clear()
+        mItems.add(PlusHabit())
+        notifyDataSetChanged()
     }
 
     override fun changeItem(position: Int, habit: Habit) {

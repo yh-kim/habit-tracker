@@ -21,6 +21,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.pickth.habit.view.main.adapter.item.Habit
+import java.util.*
 
 /**
  * Created by yonghoon on 2017-08-13
@@ -62,12 +63,19 @@ object HabitManager {
         notifyDataSetChanged(context)
     }
 
+    fun swapHabit(context: Context, startPosition: Int, endPosition: Int) {
+        Collections.swap(getHabits(context), startPosition, endPosition)
+        notifyDataSetChanged(context)
+    }
+
     fun removeAllHabit(context: Context) {
-        context
-                .getSharedPreferences("habits", 0)
-                .edit()
-                .clear()
-                .apply()
+        getHabits(context).clear()
+        notifyDataSetChanged(context)
+//        context
+//                .getSharedPreferences("habits", 0)
+//                .edit()
+//                .clear()
+//                .apply()
     }
 
     fun logHabitStatus(context: Context) {

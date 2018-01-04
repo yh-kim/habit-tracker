@@ -21,7 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pickth.habit.R
-import com.pickth.habit.listener.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.view.main.adapter.item.Habit
 import kotlinx.android.synthetic.main.item_habit.view.*
 import org.jetbrains.anko.alert
@@ -36,7 +36,7 @@ import org.jetbrains.anko.yesButton
 class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitViewHolder>() {
     private var mItems = ArrayList<Habit>()
 
-    private lateinit var mListener: OnHabitClickListener
+    private lateinit var mListener: OnHabitTouchListener
 
     override fun onBindViewHolder(holder: ImportHabitViewHolder, position: Int) {
         holder.onBind(mItems[position], position)
@@ -52,7 +52,7 @@ class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitVie
         return ImportHabitViewHolder(itemView, mListener)
     }
 
-    fun setOnHabitClickListener(listener: OnHabitClickListener) {
+    fun setOnHabitClickListener(listener: OnHabitTouchListener) {
         mListener = listener
     }
 
@@ -87,7 +87,7 @@ class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitVie
 
     fun getItems(): ArrayList<Habit> = mItems
 
-    class ImportHabitViewHolder(view: View, val listener: OnHabitClickListener) : RecyclerView.ViewHolder(view) {
+    class ImportHabitViewHolder(view: View, val listener: OnHabitTouchListener) : RecyclerView.ViewHolder(view) {
         fun onBind(item: Habit, position: Int) {
             with(itemView) {
                 tv_item_habit_title.text = item.title
@@ -95,7 +95,7 @@ class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitVie
 
                 setOnLongClickListener {
                     context.alert("정말 삭제하시겠습니까?") {
-                        yesButton { listener.onItemLongClick(position) }
+                        yesButton { listener.onItemRemove(position) }
                         noButton { }
                     }.show()
                     true

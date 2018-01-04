@@ -22,10 +22,10 @@ import com.pickth.habit.view.main.adapter.item.Habit
  * Created by yonghoon on 2017-08-10
  */
 
-interface OnHabitClickListener {
+interface OnHabitTouchListener {
     fun onItemCheck(position: Int)
     fun onItemUnCheck(position: Int)
-    fun onItemLongClick(position: Int)
+    fun onItemRemove(position: Int)
     fun onItemModify(position: Int, habit: Habit)
     fun onLastItemClick()
 }

@@ -21,9 +21,8 @@ import android.util.Log
 import com.google.gson.Gson
 import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.util.HabitManager
-import com.pickth.habit.listener.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.listener.OnHabitDragListener
-import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.util.StringUtil
 import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.MainAdapterContract
@@ -33,7 +32,7 @@ import com.pickth.habit.view.main.adapter.MainViewHolder
  * Created by yonghoon on 2017-08-09
  */
 
-class MainPresenter: MainContract.Presenter, OnHabitClickListener, OnHabitDragListener {
+class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragListener {
 
     val TAG = "${javaClass.simpleName}"
 
@@ -71,6 +70,11 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener, OnHabitDragLi
         mAdapterModel.addItems(list)
     }
 
+    override fun clearHabitItems() {
+        mAdapterModel.removeAllItems()
+        HabitManager.removeAllHabit(mView.getContext())
+    }
+
     override fun moveHabitItem(startPosition: Int, endPosition: Int) {
         // 마지막 아이템이면
         if(mAdapterModel.getItemCount() - 1 == endPosition) {
@@ -78,7 +82,7 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener, OnHabitDragLi
         }
 
         mAdapterModel.swapItem(startPosition, endPosition)
-        HabitManager.notifyDataSetChanged(mView.getContext())
+        HabitManager.swapHabit(mView.getContext(), startPosition, endPosition)
     }
 
     override fun onItemCheck(position: Int) {
@@ -102,7 +106,7 @@ class MainPresenter: MainContract.Presenter, OnHabitClickListener, OnHabitDragLi
         mView.updateWidget()
     }
 
-    override fun onItemLongClick(position: Int) {
+    override fun onItemRemove(position: Int) {
         mAdapterModel.removeItem(position)
         HabitManager.removeHabit(mView.getContext(), position)
     }

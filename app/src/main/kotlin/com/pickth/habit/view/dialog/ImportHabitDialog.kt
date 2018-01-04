@@ -27,7 +27,7 @@ import android.view.inputmethod.InputMethodManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.pickth.habit.R
-import com.pickth.habit.listener.OnHabitClickListener
+import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.view.main.adapter.item.Habit
 import kotlinx.android.synthetic.main.dialog_import_habit.*
 import org.jetbrains.anko.toast
@@ -50,7 +50,7 @@ class ImportHabitDialog(context: Context, val listener: View.OnClickListener): D
         setContentView(R.layout.dialog_import_habit)
 
         mAdapter = ImportHabitAdapter().apply {
-            setOnHabitClickListener(object: OnHabitClickListener {
+            setOnHabitClickListener(object: OnHabitTouchListener {
                 override fun onItemModify(position: Int, habit: Habit) {
                 }
 
@@ -60,7 +60,7 @@ class ImportHabitDialog(context: Context, val listener: View.OnClickListener): D
                 override fun onItemUnCheck(position: Int) {
                 }
 
-                override fun onItemLongClick(position: Int) {
+                override fun onItemRemove(position: Int) {
                     mAdapter.removeItem(position)
                     mHabits = mAdapter.getItems()
                 }
