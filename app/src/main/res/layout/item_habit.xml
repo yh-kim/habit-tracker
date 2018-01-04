@@ -25,6 +25,22 @@
         android:background="@drawable/square_habit_checked_background"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/iv_item_habit_drag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/square_habit_drag_background"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_item_habit_title_drag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/tv_item_habit_day"
         android:layout_width="wrap_content"

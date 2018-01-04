@@ -40,7 +40,9 @@ import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.util.HabitTouchHelperCallback
 import com.pickth.habit.view.main.adapter.item.Habit
-import com.pickth.habit.view.main.adapter.item.PlusHabit
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 
 
 /**
@@ -194,7 +196,10 @@ class MainActivity: BaseActivity(), MainContract.View {
                 importHabitDialog.show()
             }
             R.id.habit_remove_all -> {
-                mPresenter.clearHabitItems()
+                getContext().alert("정말 삭제하시겠습니까?") {
+                    yesButton { mPresenter.clearHabitItems() }
+                    noButton { }
+                }.show()
             }
         }
 

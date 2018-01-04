@@ -7,6 +7,7 @@
     <color name="colorMain">#486972</color>
     <color name="colorMainTrans">#8001579B</color>
     <color name="colorPlus">#525A88</color>
+    <color name="colorDrag">#9C27B0</color>
 
     <color name="colorBlackTrans">#80000000</color>
     <color name="colorWhite">#FFFFFFFF</color>

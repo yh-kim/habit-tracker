@@ -16,7 +16,6 @@
 
 package com.pickth.habit.view.main.adapter
 
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.support.v4.content.ContextCompat
@@ -42,7 +41,6 @@ import org.jetbrains.anko.*
  */
 
 class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragListener: OnHabitDragListener) : RecyclerView.ViewHolder(view), HabitTouchHelperViewHolder {
-    private lateinit var addHabitDialog: AddHabitDialog
     private var isDrag = false
 
     fun onBind(item: Habit, position: Int) {
@@ -69,12 +67,19 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
             } else {
                 // 일반 아이템
                 var isCheck = false
+
+                // title
                 tv_item_habit_title.text = item.title
+                tv_item_habit_title_drag.text = item.title
+
+                // day
                 if(item.days.size != 0) tv_item_habit_day.text = item.days[0]
                 if(!item.days.isEmpty()) {
                     tv_item_habit_day.text = StringUtil.formatDayToString(item.days[0])
                     isCheck = item.days[0] == StringUtil.getCurrentDay()
                 }
+
+                // check
                 if(isCheck) iv_item_habit_select.visibility = View.VISIBLE
 
 
@@ -107,6 +112,9 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
                         i -> when(i) {
                             0 -> {
                                 isDrag = true
+                                iv_item_habit_drag.visibility = View.VISIBLE
+                                tv_item_habit_title_drag.visibility = View.VISIBLE
+                                context.toast("습관을 이동시켜주세요")
 //                                dragListener.onStartDrag(this@MainViewHolder)
                             }
                             1 -> {
@@ -133,11 +141,20 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
         }
     }
 
+    /**
+     * Called when pressing in drag mode
+     */
     override fun onItemSelected() {
-        itemView.setBackgroundColor(Color.LTGRAY)
     }
 
     override fun onItemClear() {
-        itemView.setBackgroundColor(0)
+        itemView.iv_item_habit_drag.visibility = View.GONE
+        itemView.tv_item_habit_title_drag.visibility = View.GONE
+//        val back = itemView.iv_item_habit_background.background as LayerDrawable
+//        (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
+//                .run {
+//                    setColor(ContextCompat.getColor(itemView.context, R.color.colorPlus))
+//                }
+//        itemView.setBackgroundColor(0)
     }
 }
