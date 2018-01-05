@@ -121,6 +121,7 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
                                 isDrag = true
                                 iv_item_habit_drag.visibility = View.VISIBLE
                                 tv_item_habit_title_drag.visibility = View.VISIBLE
+                                iv_item_habit_drag_icon.visibility = View.VISIBLE
                                 context.toast(context.getString(R.string.move_habit))
 //                                dragListener.onStartDrag(this@MainViewHolder)
                             }
@@ -157,6 +158,7 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
     override fun onItemClear() {
         itemView.iv_item_habit_drag.visibility = View.GONE
         itemView.tv_item_habit_title_drag.visibility = View.GONE
+        itemView.iv_item_habit_drag_icon.visibility = View.GONE
 //        val back = itemView.iv_item_habit_background.background as LayerDrawable
 //        (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
 //                .run {

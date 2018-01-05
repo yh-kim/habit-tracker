@@ -19,7 +19,7 @@ android {
 
             applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "habit-${defaultConfig.versionName}.apk"
+                    outputFileName = "habit_v.${defaultConfig.versionName}.apk"
                 }
             }
         }

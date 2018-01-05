@@ -32,6 +32,16 @@
         android:background="@drawable/square_habit_drag_background"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/iv_item_habit_drag_icon"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_drag"
+        android:tint="@color/colorWhite"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/tv_item_habit_title_drag"
         android:layout_width="wrap_content"
