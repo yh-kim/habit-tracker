@@ -91,6 +91,8 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
                 // check
                 if(isCheck) iv_item_habit_select.visibility = View.VISIBLE
 
+                cv_habit_check.setDays(item.days)
+
 
                 setOnClickListener {
                     if (isCheck) {

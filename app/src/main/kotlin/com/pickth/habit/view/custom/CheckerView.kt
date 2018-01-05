@@ -21,11 +21,13 @@ import android.content.res.TypedArray
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.pickth.habit.R
+import com.pickth.habit.util.StringUtil
 import kotlinx.android.synthetic.main.view_checker.view.*
 
 /**
@@ -85,8 +87,23 @@ class CheckerView: LinearLayout {
 
     }
 
-    fun setDays(days: Array<String>) {
-        notifyDataSetChanged()
+    fun setDays(days: ArrayList<String>) {
+        var size = days.size
+
+        for(i in 6 downTo 0) {
+            if(size < i+1) continue
+
+            var dayText = StringUtil.formatDayToString(days[i])
+            if(dayText == "0") {
+                mCircleViews[6].isSelected = true
+            } else {
+                val dayNum = dayText.toInt()
+                if(dayNum > 6) continue
+
+                mCircleViews[6-dayText.toInt()].isSelected = true
+            }
+        }
+//        notifyDataSetChanged()
     }
 
     /**
