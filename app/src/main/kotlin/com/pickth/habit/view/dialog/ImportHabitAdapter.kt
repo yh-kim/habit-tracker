@@ -26,7 +26,7 @@ import android.view.ViewGroup
 import com.pickth.habit.R
 import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.view.main.adapter.item.Habit
-import kotlinx.android.synthetic.main.item_habit.view.*
+import kotlinx.android.synthetic.main.item_habit_import.view.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
@@ -50,7 +50,7 @@ class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitVie
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ImportHabitViewHolder {
         val itemView = LayoutInflater
                 .from(parent?.context)
-                .inflate(R.layout.item_habit, parent, false)
+                .inflate(R.layout.item_habit_import, parent, false)
 
         return ImportHabitViewHolder(itemView, mListener)
     }
@@ -100,7 +100,6 @@ class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitVie
                         }
 
                 tv_item_habit_title.text = item.title
-                iv_item_habit_select.visibility = View.GONE
 
                 setOnLongClickListener {
                     context.alert("정말 삭제하시겠습니까?") {
