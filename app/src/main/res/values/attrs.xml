@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ReliabilityView Custom Styling -->
+    <declare-styleable name="CheckerView">
+        <attr name="size" format="reference|integer" />
+    </declare-styleable>
+</resources>

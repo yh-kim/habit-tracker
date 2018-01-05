@@ -58,6 +58,7 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
             if (item is PlusHabit) {
                 tv_item_habit_title.visibility = View.GONE
                 tv_item_habit_day.visibility = View.GONE
+                ll_item_habit_bottom_back.visibility = View.GONE
                 iv_item_habit_last.visibility = View.VISIBLE
 
                 setOnClickListener {
@@ -82,6 +83,7 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
                         textDay = day + context.getString(R.string.habit_days_ago)
                     }
                     tv_item_habit_day.text = textDay
+                    tv_item_habit_day.textColor = item.color
 
                     isCheck = item.days[0] == StringUtil.getCurrentDay()
                 }
