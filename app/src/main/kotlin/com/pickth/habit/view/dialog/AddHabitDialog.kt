@@ -16,8 +16,10 @@
 
 package com.pickth.habit.view.dialog
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
@@ -30,13 +32,32 @@ import com.pickth.habit.view.main.adapter.item.Habit
 import kotlinx.android.synthetic.main.dialog_add_habit.*
 import org.jetbrains.anko.alert
 import java.util.*
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker
+import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback
+
 
 /**
  * Created by yonghoon on 2017-08-14
  */
 
-class AddHabitDialog(context: Context, val listener: View.OnClickListener, val test: String, val habit: Habit?): Dialog(context, R.style.AppTheme_NoTitle_Translucent) {
+class AddHabitDialog(context: Context, val listener: View.OnClickListener, val test: String, val habit: Habit?) : Dialog(context, R.style.AppTheme_NoTitle_Translucent) {
     constructor(context: Context, listener: View.OnClickListener) : this(context, listener, "", null)
+
+    var itemColor = habit?.color ?: ContextCompat.getColor(context, R.color.colorMain)
+//    val colorPicker = ColorPicker(
+//            context as Activity, // Context
+////            255, // Default Alpha value
+//            127, // Default Red value
+//            123, // Default Green value
+//            67 // Default Blue value
+//    )
+    val colorPicker = ColorPicker(
+            context as Activity, // Context
+//            255, // Default Alpha value
+            Color.red(itemColor),
+            Color.green(itemColor),
+            Color.blue(itemColor)
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +71,7 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener, val t
         setContentView(R.layout.dialog_add_habit)
         btn_add_habit_submit.setOnClickListener(listener)
         et_add_habit_title.setText(test)
+        ll_add_habit_back.setBackgroundColor(itemColor)
 
         var editTitle = et_add_habit_title.background.apply {
             setColorFilter(
@@ -57,13 +79,23 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener, val t
                     PorterDuff.Mode.SRC_ATOP
             )
         }
-        if(Build.VERSION.SDK_INT > 16) et_add_habit_title.background = editTitle
+        if (Build.VERSION.SDK_INT > 16) et_add_habit_title.background = editTitle
         else et_add_habit_title.setBackgroundDrawable(editTitle)
+
+        colorPicker.setCallback(ColorPickerCallback { color ->
+            ll_add_habit_back.setBackgroundColor(color)
+            itemColor = color
+            colorPicker.hide()
+        })
+
+        btn_select_color.setOnClickListener {
+            colorPicker.show()
+        }
     }
 
     fun addHabit(): Habit? {
         var title = et_add_habit_title.text.toString()
-        if(title == "") {
+        if (title == "") {
             // 제목을 안지었을 때
             context.alert("제목을 입력하세요").show()
             return null
@@ -71,7 +103,7 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener, val t
 
         var newHabit = Habit(UUID.randomUUID().toString(),
                 title,
-                ContextCompat.getColor(context, R.color.colorAccent)
+                itemColor
         )
         dismiss()
         return newHabit
@@ -79,12 +111,13 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener, val t
 
     fun modifyHabit(): Habit? {
         var title = et_add_habit_title.text.toString()
-        if(title == "") {
+        if (title == "") {
             // 제목을 안지었을 때
             context.alert("제목을 입력하세요").show()
             return null
         }
         habit?.title = title
+        habit?.color = itemColor
         dismiss()
         return habit
     }

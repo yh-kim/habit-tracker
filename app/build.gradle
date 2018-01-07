@@ -53,6 +53,9 @@ dependencies {
 
     // gson
     implementation 'com.google.code.gson:gson:2.8.1'
+
+    // color picker
+    implementation 'com.pes.materialcolorpicker:library:1.2.0'
 }
 repositories {
     mavenCentral()

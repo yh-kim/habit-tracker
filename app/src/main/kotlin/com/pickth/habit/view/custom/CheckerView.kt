@@ -18,17 +18,15 @@ package com.pickth.habit.view.custom
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.os.Build
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.pickth.habit.R
 import com.pickth.habit.util.StringUtil
-import kotlinx.android.synthetic.main.view_checker.view.*
 
 /**
  * Created by yonghoon on 2018-01-05
@@ -37,6 +35,8 @@ import kotlinx.android.synthetic.main.view_checker.view.*
 
 class CheckerView: LinearLayout {
     private val mCircleViews = ArrayList<ImageView>()
+    private var defaultColor: Int = 0
+    private var selectColor: Int = ContextCompat.getColor(context, R.color.colorPlus)
 
     constructor(context: Context): this(context, null, 0) {
     }
@@ -59,7 +59,7 @@ class CheckerView: LinearLayout {
 //
 //        val imageView = ImageView(context).apply {
 //            id = View.generateViewId()
-//            background = ContextCompat.getDrawable(context, R.drawable.selector_checker_circle);
+//            background = ContextCompat.getDrawable(context, R.drawable.checker_circle_background);
 //        }
 //
 //
@@ -78,7 +78,7 @@ class CheckerView: LinearLayout {
         for(i in 0 until 7) {
             val ivCircle = ImageView(context).apply {
                 id = View.generateViewId()
-                background = ContextCompat.getDrawable(context, R.drawable.selector_checker_circle)
+                background = ContextCompat.getDrawable(context, R.drawable.checker_circle_background)
             }
 
             addView(ivCircle)
@@ -103,7 +103,12 @@ class CheckerView: LinearLayout {
                 mCircleViews[6-dayText.toInt()].isSelected = true
             }
         }
-//        notifyDataSetChanged()
+
+        notifyDataSetChanged()
+    }
+
+    fun setColor(color: Int) {
+        defaultColor = color
     }
 
     /**
@@ -119,7 +124,17 @@ class CheckerView: LinearLayout {
     }
 
     private fun notifyDataSetChanged() {
-        for(i in mCircleViews) i.isSelected = false
+        for(i in mCircleViews) {
+            if(i.isSelected) {
+                val back = i.background as LayerDrawable
+                (back.findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable).setColor(selectColor)
+            } else {
+                val back = i.background as LayerDrawable
+                (back.findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable).setColor(defaultColor)
+            }
+        }
+
+//        for(i in mCircleViews) i.isSelected = false
 //        for(i in 0..mReliability/20-1) mCircleViews[i].isSelected = true
     }
 

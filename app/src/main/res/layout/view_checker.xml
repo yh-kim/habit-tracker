@@ -5,43 +5,43 @@
 
     <ImageView
         android:id="@+id/iv_checker_circle_1"
-        android:src="@drawable/selector_checker_circle"
+        android:src="@drawable/checker_circle_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/iv_checker_circle_2"
-        android:src="@drawable/selector_checker_circle"
+        android:src="@drawable/checker_circle_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/iv_checker_circle_3"
-        android:src="@drawable/selector_checker_circle"
+        android:src="@drawable/checker_circle_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/iv_checker_circle_4"
-        android:src="@drawable/selector_checker_circle"
+        android:src="@drawable/checker_circle_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/iv_checker_circle_5"
-        android:src="@drawable/selector_checker_circle"
+        android:src="@drawable/checker_circle_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/iv_checker_circle_6"
-        android:src="@drawable/selector_checker_circle"
+        android:src="@drawable/checker_circle_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/iv_checker_circle_7"
-        android:src="@drawable/selector_checker_circle"
+        android:src="@drawable/checker_circle_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
