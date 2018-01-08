@@ -59,7 +59,7 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
         mHabitTouchHelper = habitTouchHelper
     }
 
-    override fun getItemCount(): Int = mAdapterModel.getItemCount() - 1
+    override fun getItemCount(): Int = mAdapterModel.getHabitItemCount()
 
     override fun addHabitItem(item: Habit) {
         mAdapterModel.addItem(item)
@@ -82,7 +82,8 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
         }
 
         mAdapterModel.swapItem(startPosition, endPosition)
-        HabitManager.swapHabit(mView.getContext(), startPosition, endPosition)
+        HabitManager.notifyDataSetChanged(mView.getContext(), mAdapterModel.getHabitItems())
+//        HabitManager.swapHabit(mView.getContext(), startPosition, endPosition)
     }
 
     override fun onItemCheck(position: Int) {
@@ -142,5 +143,9 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
 
     override fun onStartDrag(holder: MainViewHolder) {
         mHabitTouchHelper.startDrag(holder)
+    }
+
+    override fun onUpdateItems() {
+        refreshAllData()
     }
 }

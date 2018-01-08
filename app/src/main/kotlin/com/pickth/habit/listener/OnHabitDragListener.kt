@@ -8,4 +8,7 @@ import com.pickth.habit.view.main.adapter.MainViewHolder
 
 interface OnHabitDragListener {
     fun onStartDrag(holder: MainViewHolder)
+
+
+    fun onUpdateItems()
 }

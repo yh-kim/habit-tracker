@@ -24,7 +24,6 @@ import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.listener.OnHabitDragListener
 import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.item.PlusHabit
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**
@@ -67,6 +66,8 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 
     override fun getItemCount(): Int = mItems.size
 
+    override fun getHabitItemCount(): Int = mItems.size - 1
+
     override fun setOnHabitClickListener(listener: OnHabitTouchListener) {
         mListener = listener
     }
@@ -76,9 +77,9 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     }
 
     override fun addItem(item: Habit) {
-        mItems.add(itemCount - 1, item)
+        mItems.add(getHabitItemCount(), item)
 //        notifyDataSetChanged()
-        notifyItemInserted(itemCount - 1)
+        notifyItemInserted(getHabitItemCount())
     }
 
     override fun addItems(list: ArrayList<Habit>) {
@@ -87,7 +88,11 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 
     override fun getItem(position: Int): Habit = mItems[position]
 
-    override fun getItems(): ArrayList<Habit> = mItems
+    override fun getAllItems(): ArrayList<Habit> = mItems
+
+    override fun getHabitItems(): ArrayList<Habit> {
+        return (mItems.clone() as ArrayList<Habit>).apply { removeAt(itemCount - 1) }
+    }
 
     override fun removeItem(position: Int): Boolean {
         if(mItems.isEmpty()) return false
@@ -110,7 +115,10 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     }
 
     override fun swapItem(startPosition: Int, endPosition: Int) {
-        Collections.swap(mItems, startPosition, endPosition)
+//        Collections.swap(mItems, startPosition, endPosition)
+        val item = mItems[startPosition]
+        mItems.remove(item)
+        mItems.add(endPosition, item)
         notifyItemMoved(startPosition, endPosition)
     }
 

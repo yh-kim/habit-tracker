@@ -53,6 +53,14 @@ object HabitManager {
                 .apply()
     }
 
+    fun notifyDataSetChanged(context: Context, habits: ArrayList<Habit>) {
+        mHabits = habits
+        context.getSharedPreferences("habits", 0)
+                .edit()
+                .putString("habits", Gson().toJson(mHabits).toString())
+                .apply()
+    }
+
     fun addHabit(context: Context, habit: Habit) {
         getHabits(context).add(habit)
         notifyDataSetChanged(context)

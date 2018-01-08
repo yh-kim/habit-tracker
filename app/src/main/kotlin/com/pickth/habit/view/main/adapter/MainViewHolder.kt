@@ -164,11 +164,7 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
         itemView.iv_item_habit_drag.visibility = View.GONE
         itemView.tv_item_habit_title_drag.visibility = View.GONE
         itemView.iv_item_habit_drag_icon.visibility = View.GONE
-//        val back = itemView.iv_item_habit_background.background as LayerDrawable
-//        (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
-//                .run {
-//                    setColor(ContextCompat.getColor(itemView.context, R.color.colorPlus))
-//                }
-//        itemView.setBackgroundColor(0)
+
+        dragListener.onUpdateItems()
     }
 }

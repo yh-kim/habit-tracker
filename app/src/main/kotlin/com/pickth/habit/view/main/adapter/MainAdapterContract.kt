@@ -32,10 +32,12 @@ interface MainAdapterContract {
 
     interface Model {
         fun getItemCount(): Int
+        fun getHabitItemCount(): Int
         fun addItem(item: Habit)
         fun addItems(list: ArrayList<Habit>)
         fun getItem(position: Int): Habit
-        fun getItems(): ArrayList<Habit>
+        fun getAllItems(): ArrayList<Habit>
+        fun getHabitItems(): ArrayList<Habit>
         fun removeItem(position: Int): Boolean
         fun removeAllItems()
         fun changeItem(position: Int, habit: Habit)
