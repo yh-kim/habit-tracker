@@ -53,6 +53,7 @@ class HabitWidget: AppWidgetProvider() {
             }
 
             var habit = HabitManager.getHabits(context)[position]
+            views.setInt(R.id.iv_widget_habit_background, "setColorFilter", habit.color)
 
             views.setTextViewText(R.id.tv_widget_habit_title, habit.title)
             if(!habit.days.isEmpty()) {
@@ -98,6 +99,7 @@ class HabitWidget: AppWidgetProvider() {
             }
 
             val habit = HabitManager.getHabits(context)[habitPosition]
+            views.setInt(R.id.iv_widget_habit_background, "setColorFilter", habit.color)
             if (!habit.days.isEmpty()) {
                 if (habit.days[0] == StringUtil.getCurrentDay()) {
                     // 체크 되어있는 상태

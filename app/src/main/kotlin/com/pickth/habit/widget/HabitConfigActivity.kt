@@ -57,6 +57,7 @@ class HabitConfigActivity: BaseActivity() {
                         HabitWidgetManager.addWidget(applicationContext, mAppWidgetId, habit.id)
 
                         mRemoteView.setViewVisibility(R.id.pb_widget_loading, View.GONE)
+                        mRemoteView.setInt(R.id.iv_widget_habit_background, "setColorFilter", habit.color)
 
                         // bind view
                         mRemoteView.setTextViewText(R.id.tv_widget_habit_title, habit.title)

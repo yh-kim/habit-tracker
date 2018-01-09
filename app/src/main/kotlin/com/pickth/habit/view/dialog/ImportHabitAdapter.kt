@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pickth.habit.R
+import com.pickth.habit.extensions.setBackgroundColorWithRadius
 import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.view.main.adapter.item.Habit
 import kotlinx.android.synthetic.main.item_habit_import.view.*
@@ -93,11 +94,7 @@ class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitVie
     class ImportHabitViewHolder(view: View, val listener: OnHabitTouchListener) : RecyclerView.ViewHolder(view) {
         fun onBind(item: Habit, position: Int) {
             with(itemView) {
-                val back = iv_item_habit_background.background as LayerDrawable
-                (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
-                        .run {
-                            setColor(item.color)
-                        }
+                iv_item_habit_background.setBackgroundColorWithRadius(item.color, 7)
 
                 tv_item_habit_title.text = item.title
 

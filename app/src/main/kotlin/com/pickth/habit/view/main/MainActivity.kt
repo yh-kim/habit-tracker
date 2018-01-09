@@ -118,6 +118,7 @@ class MainActivity: BaseActivity(), MainContract.View {
         addHabitDialog = AddHabitDialog(this, View.OnClickListener {
             addHabitDialog.addHabit()?.let {
                 mPresenter.addHabitItem(it)
+                mPresenter.refreshAllData()
             }
         })
         addHabitDialog.show()
@@ -126,6 +127,7 @@ class MainActivity: BaseActivity(), MainContract.View {
     override fun showModifyHabitDialog(position: Int, habit: Habit) {
         addHabitDialog = AddHabitDialog(this, View.OnClickListener {
             mPresenter.changeItem(position, addHabitDialog.modifyHabit()!!)
+            mPresenter.refreshAllData()
         }, habit.title, habit)
         addHabitDialog.show()
     }

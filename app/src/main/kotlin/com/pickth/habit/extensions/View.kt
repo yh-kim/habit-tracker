@@ -18,8 +18,13 @@ package com.pickth.habit.extensions
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.graphics.drawable.GradientDrawable
+import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.animation.AlphaAnimation
+import com.pickth.gachi.extensions.convertDpToPixel
+import com.pickth.habit.R
+import org.jetbrains.anko.backgroundDrawable
 
 /**
  * Created by yonghoon on 2017-08-10
@@ -31,6 +36,13 @@ fun View.setShowAlphaAnimation(duration: Long) {
 
 fun View.setHideAlphaAnimation(duration: Long) {
     animation = AlphaAnimation(1f, 0f).apply { this.duration = duration }
+}
+
+fun View.setBackgroundColorWithRadius(color: Int, dpValue: Int) {
+    backgroundDrawable = GradientDrawable().apply {
+        setColor(color)
+        cornerRadius = context.convertDpToPixel(dpValue.toFloat())
+    }
 }
 
 fun View.setBackgroundColorOnAnimation(preColor: Int, postColor: Int) {

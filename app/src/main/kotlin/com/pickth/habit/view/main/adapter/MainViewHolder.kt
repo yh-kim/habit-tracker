@@ -23,7 +23,9 @@ import android.support.v4.view.MotionEventCompat
 import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
 import android.view.View
+import com.pickth.gachi.extensions.convertDpToPixel
 import com.pickth.habit.R
+import com.pickth.habit.extensions.setBackgroundColorWithRadius
 import com.pickth.habit.extensions.setHideAlphaAnimation
 import com.pickth.habit.extensions.setShowAlphaAnimation
 import com.pickth.habit.listener.HabitTouchHelperViewHolder
@@ -44,17 +46,15 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
 
     fun onBind(item: Habit, position: Int) {
         with(itemView) {
-            val back = iv_item_habit_background.background as LayerDrawable
-            (back.findDrawableByLayerId(R.id.square_background_item) as GradientDrawable)
-                    .run {
-                        if (item.color == 0) {
-                            setColor(ContextCompat.getColor(context, R.color.colorPlus))
-                        } else {
-                            setColor(item.color)
-                        }
-                    }
 
-            // itemView is plus button
+            // background color
+            if (item.color == 0) {
+                iv_item_habit_background.setBackgroundColorWithRadius(ContextCompat.getColor(context, R.color.colorPlus), 7)
+            } else {
+                iv_item_habit_background.setBackgroundColorWithRadius(item.color, 7)
+            }
+
+            // item
             if (item is PlusHabit) {
                 tv_item_habit_title.visibility = View.GONE
                 tv_item_habit_day.visibility = View.GONE
