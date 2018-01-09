@@ -26,6 +26,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.pickth.habit.R
+import com.pickth.habit.util.ColorUtil
 import com.pickth.habit.util.StringUtil
 
 /**
@@ -126,16 +127,27 @@ class CheckerView: LinearLayout {
     private fun notifyDataSetChanged() {
         for(i in mCircleViews) {
             if(i.isSelected) {
-                val back = i.background as LayerDrawable
-                (back.findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable).setColor(selectColor)
+                // 선택했을 때
+
+                if(ColorUtil.getContrastColor(defaultColor) == ColorUtil.BLACK) {
+                    // 어두운 색일 때
+                    ((i.background as LayerDrawable)
+                            .findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable)
+                            .setColor(ContextCompat.getColor(context, R.color.colorAccent))
+                } else {
+                    // 밝은 색일 때
+                    ((i.background as LayerDrawable)
+                            .findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable)
+                            .setColor(ContextCompat.getColor(context, R.color.colorPlus))
+                }
+
             } else {
-                val back = i.background as LayerDrawable
-                (back.findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable).setColor(defaultColor)
+                // 선택안했을 때
+                ((i.background as LayerDrawable)
+                        .findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable)
+                        .setColor(defaultColor)
             }
         }
-
-//        for(i in mCircleViews) i.isSelected = false
-//        for(i in 0..mReliability/20-1) mCircleViews[i].isSelected = true
     }
 
     private fun getAttrs(attrs: AttributeSet?, defStyleAttr: Int) {

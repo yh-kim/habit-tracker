@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Habit</string>
+    <string name="app_name">HabitTracker</string>
 
     <string name="export_habit">Export habits</string>
     <string name="import_habit">Import habits</string>

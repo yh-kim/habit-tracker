@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">습관</string>
+    <string name="app_name">습관꾼</string>
 
     <string name="export_habit">습관 내보내기</string>
     <string name="import_habit">습관 가져오기</string>
