@@ -26,6 +26,7 @@
             <intent-filter>
                 <action android:name="android.action.HABIT_CLICK" />
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
             </intent-filter>
 
             <meta-data

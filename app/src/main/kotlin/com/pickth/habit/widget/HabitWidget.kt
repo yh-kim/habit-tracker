@@ -27,6 +27,9 @@ import android.widget.RemoteViews
 import com.pickth.habit.R
 import com.pickth.habit.util.HabitManager
 import com.pickth.habit.util.StringUtil
+import android.content.ComponentName
+
+
 
 /**
  * Created by yonghoon on 2017-08-14
@@ -40,7 +43,7 @@ class HabitWidget: AppWidgetProvider() {
         val ACTION_CLICKED = "com.pickth.habit.CLICKED_"
 
         internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            Log.v(HabitWidget.javaClass.simpleName, "Update widgets")
+            Log.v("HabitWidget", "Update widgets")
             // bind
             val views = RemoteViews(context.packageName, R.layout.widget_habit)
 
@@ -121,6 +124,15 @@ class HabitWidget: AppWidgetProvider() {
 
             AppWidgetManager.getInstance(context)
                     .updateAppWidget(id, views)
+        } else if(Intent.ACTION_DATE_CHANGED == intent.action) {
+            Log.v(TAG, "ACTION DATE CHANGED, date: ${StringUtil.getCurrentDay()}")
+            // update all widgets
+            val thisWidget = ComponentName(context, HabitWidget::class.java)
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget)
+            if(appWidgetIds != null) {
+                this.onUpdate(context,appWidgetManager , appWidgetIds)
+            }
         }
         super.onReceive(context, intent)
     }

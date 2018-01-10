@@ -39,6 +39,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.util.HabitTouchHelperCallback
+import com.pickth.habit.util.StringUtil
 import com.pickth.habit.view.main.adapter.item.Habit
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -51,26 +52,34 @@ import org.jetbrains.anko.yesButton
 
 class MainActivity: BaseActivity(), MainContract.View {
 
+    private var mDay: String = ""
     private lateinit var mPresenter: MainPresenter
     private lateinit var mAdapter: MainAdapter
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var addHabitDialog: AddHabitDialog
     private lateinit var importHabitDialog: ImportHabitDialog
     private lateinit var mHabitTouchHelper: ItemTouchHelper
-//    private val filter: IntentFilter by lazy {
-//        IntentFilter().apply { addAction(Intent.ACTION_DATE_CHANGED) }
-//    }
-//    private val mChangeDateBroadcastReceiver: BroadcastReceiver by lazy {
-//        object: BroadcastReceiver() {
-//            override fun onReceive(p0: Context, p1: Intent) {
-//                when(p1.action) {
-//                    Intent.ACTION_TIME_CHANGED -> {
-//                        mPresenter.refreshAllData()
-//                    }
-//                }
-//            }
-//        }
-//    }
+    private val filter: IntentFilter by lazy {
+        IntentFilter().apply {
+            addAction(Intent.ACTION_TIME_TICK)
+        }
+    }
+    private val mChangeDateBroadcastReceiver: BroadcastReceiver by lazy {
+        object: BroadcastReceiver() {
+            override fun onReceive(p0: Context, p1: Intent) {
+                when(p1.action) {
+                    Intent.ACTION_TIME_TICK -> {
+                        val day = StringUtil.getCurrentDay()
+                        if(mDay != day) {
+                            mDay = day
+                            mPresenter.refreshAllData()
+                        }
+
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -151,15 +160,18 @@ class MainActivity: BaseActivity(), MainContract.View {
         sendBroadcast(intent)
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        registerReceiver(mChangeDateBroadcastReceiver, filter)
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        unregisterReceiver(mChangeDateBroadcastReceiver)
-//    }
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(mChangeDateBroadcastReceiver, filter)
+        if(mDay == "") {
+            mDay = StringUtil.getCurrentDay()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregisterReceiver(mChangeDateBroadcastReceiver)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
