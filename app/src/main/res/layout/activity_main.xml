@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorMain"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <!-- app bar -->
@@ -16,7 +16,7 @@
             android:id="@+id/main_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorMain"
+            android:background="@color/colorToolbar"
             android:minHeight="?attr/actionBarSize"
             app:titleTextAppearance="@style/TitleText" />
 

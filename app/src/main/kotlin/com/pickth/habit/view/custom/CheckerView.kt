@@ -138,7 +138,7 @@ class CheckerView: LinearLayout {
                     // 밝은 색일 때
                     ((i.background as LayerDrawable)
                             .findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable)
-                            .setColor(ContextCompat.getColor(context, R.color.colorPlus))
+                            .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 }
 
             } else {

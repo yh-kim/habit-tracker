@@ -9,7 +9,7 @@
         android:id="@+id/import_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorMain"
+        android:background="@color/colorPrimary"
         android:gravity="center_vertical">
 
         <ImageView

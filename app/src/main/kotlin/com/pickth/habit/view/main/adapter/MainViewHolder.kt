@@ -52,6 +52,7 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
                 iv_item_habit_background.setBackgroundColorWithRadius(ContextCompat.getColor(context, R.color.colorPlus), 7)
             } else {
                 iv_item_habit_background.setBackgroundColorWithRadius(item.color, 7)
+//                iv_item_habit_background.setBackgroundColorWithRadius(ContextCompat.getColor(context, R.color.colorAccent), 7)
             }
 
             // item

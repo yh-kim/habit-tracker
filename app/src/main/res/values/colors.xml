@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#486972</color>
-    <color name="colorPrimaryDark">#486972</color>
-    <color name="colorAccent">#DE6A51</color>
+    <color name="colorPrimary">#1D2229</color>
+    <color name="colorPrimaryDark">#1D2229</color>
+    <color name="colorAccent">#A3A045</color>
 
-    <color name="colorMain">#486972</color>
+    <color name="colorMain">#00695C</color>
     <color name="colorMainTrans">#80000000</color>
-    <color name="colorPlus">#525A88</color>
-    <color name="colorDrag">#9C27B0</color>
+    <color name="colorPlus">#313942</color>
+    <color name="colorDrag">#FAD12A</color>
+    <color name="colorToolbar">#1D2229</color>
 
     <color name="colorBlackTrans">#80000000</color>
     <color name="colorWhite">#FFFFFFFF</color>
