@@ -82,7 +82,7 @@ class ImportHabitDialog(context: Context, val listener: View.OnClickListener): D
             val input = et_import_habits.text.toString().trim()
 
             if(input.length == 0) {
-                context.toast("습관들의 정보를 입력해주세요")
+                context.toast(context.getString(R.string.input_habits_info))
                 return@setOnClickListener
             }
 
@@ -108,7 +108,7 @@ class ImportHabitDialog(context: Context, val listener: View.OnClickListener): D
                 window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
                 currentFocus?.clearFocus()
             } catch (e: JSONException) {
-                context.toast("잘못된 습관 정보입니다")
+                context.toast(context.getString(R.string.incorrect_habit_info))
             }
         }
 
@@ -117,7 +117,7 @@ class ImportHabitDialog(context: Context, val listener: View.OnClickListener): D
 
     fun getHabits(): ArrayList<Habit>? {
         if(mHabits.size == 0) {
-            context.toast("습관을 가져와주세요")
+            context.toast(context.getString(R.string.get_habits))
             return null
         }
 

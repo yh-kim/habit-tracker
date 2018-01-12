@@ -21,13 +21,19 @@
 
     <!-- add habit -->
     <string name="input_habit_name">Enter habit name</string>
+    <string name="select_background_color">Select color</string>
+    <string name="cancel_habit">Cancel</string>
     <string name="confirm_habit">Confirm</string>
 
     <!-- import habit -->
     <string name="get_habits_info">Get habits info</string>
     <string name="input_habits_info">Input exported habits info</string>
     <string name="select_remove_habit">Delete the habit you want to delete by pressing</string>
+    <string name="delete_import_habit">Are you sure you want to delete?</string>
+    <string name="get_habits">Please get habits</string>
+    <string name="incorrect_habit_info">Incorrect habits information</string>
 
     <!-- config habit -->
     <string name="select_habit">Select habit</string>
+    <string name="check_habit_name">Is this right?</string>
 </resources>

@@ -50,7 +50,7 @@ class HabitConfigActivity: BaseActivity() {
         var mAdapter = HabitConfigAdapter()
         mAdapter.setOnClickListener(object: HabitConfigAdapter.OnHabitConfigClickListener {
             override fun onClick(position: Int) {
-                alert("${mAdapter.getItem(position).title}를 등록하시겠습니까?"){
+                alert("${mAdapter.getItem(position).title} ${applicationContext.getString(R.string.check_habit_name)}"){
                     yesButton {
                         // bind widget
                         var habit = HabitManager.getHabits(applicationContext)[position]

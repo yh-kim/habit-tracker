@@ -40,6 +40,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.util.HabitTouchHelperCallback
+import com.pickth.habit.util.LinearSpacingItemDecoration
 import com.pickth.habit.util.StringUtil
 import com.pickth.habit.view.main.adapter.item.Habit
 import org.jetbrains.anko.alert
@@ -96,7 +97,12 @@ class MainActivity: BaseActivity(), MainContract.View {
 
         mRecyclerView = rv_main.apply {
             adapter = mAdapter
+
+            // linear
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            addItemDecoration(LinearSpacingItemDecoration(context,8, true))
+
+            // grid
 //            layoutManager = GridLayoutManager(context, 2)
 //            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
             recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)

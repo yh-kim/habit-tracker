@@ -99,7 +99,7 @@ class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitVie
                 tv_item_habit_title.text = item.title
 
                 setOnLongClickListener {
-                    context.alert("정말 삭제하시겠습니까?") {
+                    context.alert(context.getString(R.string.delete_import_habit)) {
                         yesButton { listener.onItemRemove(position) }
                         noButton { }
                     }.show()

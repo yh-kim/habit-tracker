@@ -91,13 +91,17 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener, val t
         btn_select_color.setOnClickListener {
             colorPicker.show()
         }
+
+        btn_add_habit_cancel.setOnClickListener {
+            dismiss()
+        }
     }
 
     fun addHabit(): Habit? {
         var title = et_add_habit_title.text.toString()
         if (title == "") {
             // 제목을 안지었을 때
-            context.alert("제목을 입력하세요").show()
+            context.alert(context.getString(R.string.input_habit_name)).show()
             return null
         }
 
@@ -113,7 +117,7 @@ class AddHabitDialog(context: Context, val listener: View.OnClickListener, val t
         var title = et_add_habit_title.text.toString()
         if (title == "") {
             // 제목을 안지었을 때
-            context.alert("제목을 입력하세요").show()
+            context.alert(context.getString(R.string.input_habit_name)).show()
             return null
         }
         habit?.title = title
