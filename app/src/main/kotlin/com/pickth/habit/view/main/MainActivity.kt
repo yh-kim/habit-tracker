@@ -34,10 +34,8 @@ import com.pickth.habit.widget.HabitWidget
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import android.content.ClipData
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
-import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.util.HabitTouchHelperCallback
 import com.pickth.habit.util.LinearSpacingItemDecoration

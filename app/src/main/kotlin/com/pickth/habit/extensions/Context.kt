@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.pickth.gachi.extensions
+package com.pickth.habit.extensions
 
 import android.content.Context
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.pickth.gachi.extensions.convertDpToPixel
+import com.pickth.habit.extensions.convertDpToPixel
 
 /**
  * @param spanCount number of span count

@@ -20,11 +20,8 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
-import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.animation.AlphaAnimation
-import com.pickth.gachi.extensions.convertDpToPixel
-import com.pickth.habit.R
 import org.jetbrains.anko.backgroundDrawable
 
 /**

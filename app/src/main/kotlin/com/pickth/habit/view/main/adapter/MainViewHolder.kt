@@ -16,14 +16,11 @@
 
 package com.pickth.habit.view.main.adapter
 
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.MotionEventCompat
 import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
 import android.view.View
-import com.pickth.gachi.extensions.convertDpToPixel
 import com.pickth.habit.R
 import com.pickth.habit.extensions.setBackgroundColorWithRadius
 import com.pickth.habit.extensions.setHideAlphaAnimation

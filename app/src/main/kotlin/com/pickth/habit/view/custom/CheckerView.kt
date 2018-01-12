@@ -19,15 +19,13 @@ package com.pickth.habit.view.custom
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import com.pickth.gachi.extensions.convertDpToPixel
+import com.pickth.habit.extensions.convertDpToPixel
 import com.pickth.habit.R
-import com.pickth.habit.util.ColorUtil
 import com.pickth.habit.util.StringUtil
 import org.jetbrains.anko.backgroundDrawable
 
