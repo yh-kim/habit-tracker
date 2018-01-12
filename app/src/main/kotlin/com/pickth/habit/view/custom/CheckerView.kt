@@ -25,9 +25,11 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.pickth.gachi.extensions.convertDpToPixel
 import com.pickth.habit.R
 import com.pickth.habit.util.ColorUtil
 import com.pickth.habit.util.StringUtil
+import org.jetbrains.anko.backgroundDrawable
 
 /**
  * Created by yonghoon on 2018-01-05
@@ -126,26 +128,28 @@ class CheckerView: LinearLayout {
 
     private fun notifyDataSetChanged() {
         for(i in mCircleViews) {
+//            var back = ((i.background as LayerDrawable)
+//                    .findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable)
+
             if(i.isSelected) {
                 // 선택했을 때
 
-                if(ColorUtil.getContrastColor(defaultColor) == ColorUtil.BLACK) {
-                    // 어두운 색일 때
-                    ((i.background as LayerDrawable)
-                            .findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable)
-                            .setColor(ContextCompat.getColor(context, R.color.colorAccent))
-                } else {
-                    // 밝은 색일 때
-                    ((i.background as LayerDrawable)
-                            .findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable)
-                            .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                }
+//                if(ColorUtil.getContrastColor(defaultColor) == ColorUtil.BLACK) {
+//                    // 어두운 색일 때
+//                    back.setColor(ContextCompat.getColor(context, R.color.colorAccent))
+//                } else {
+//                    // 밝은 색일 때
+//                    back.setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+//                }
 
+                i.backgroundDrawable = ContextCompat.getDrawable(context, R.drawable.checker_circle_background)
+                val back = i.background as GradientDrawable
+                back.setColor(defaultColor)
             } else {
                 // 선택안했을 때
-                ((i.background as LayerDrawable)
-                        .findDrawableByLayerId(R.id.circle_background_item) as GradientDrawable)
-                        .setColor(defaultColor)
+                i.backgroundDrawable = ContextCompat.getDrawable(context, R.drawable.checker_circle_background_select)
+                val back = i.background as GradientDrawable
+                back.setStroke(context.convertDpToPixel(1), defaultColor)
             }
         }
     }

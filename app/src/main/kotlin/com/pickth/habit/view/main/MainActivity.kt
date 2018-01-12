@@ -35,6 +35,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import android.content.ClipData
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.pickth.gachi.util.GridSpacingItemDecoration
 import com.pickth.habit.listener.OnHabitMoveListener
@@ -95,9 +96,9 @@ class MainActivity: BaseActivity(), MainContract.View {
 
         mRecyclerView = rv_main.apply {
             adapter = mAdapter
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            layoutManager = GridLayoutManager(context, 2)
-            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            layoutManager = GridLayoutManager(context, 2)
+//            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
             recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)
         }
 

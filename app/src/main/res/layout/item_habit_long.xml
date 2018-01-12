@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/iv_item_habit_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_item_habit_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingStart="9dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/iv_item_habit_select"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/square_habit_checked_background"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_item_habit_drag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/square_habit_drag_background"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_item_habit_drag_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/ic_drag"
+        android:tint="@color/colorWhite"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_item_habit_title_drag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingStart="9dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_item_habit_bottom_back"
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@drawable/square_habit_long_bottom_background"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
+        android:paddingTop="1dp">
+
+        <com.pickth.habit.view.custom.CheckerView
+            android:id="@+id/cv_habit_check"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            app:size="30" />
+
+        <TextView
+            android:id="@+id/tv_item_habit_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_item_habit_last"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_add"
+        android:tint="@color/colorWhite"
+        android:visibility="gone" />
+</FrameLayout>

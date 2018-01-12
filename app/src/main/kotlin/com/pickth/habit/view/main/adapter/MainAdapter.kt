@@ -46,7 +46,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainViewHolder {
         val itemView = LayoutInflater
                 .from(parent?.context)
-                .inflate(R.layout.item_habit, parent, false)
+                .inflate(R.layout.item_habit_long, parent, false)
 
         return MainViewHolder(itemView, mListener, mDragListener)
     }
