@@ -55,6 +55,9 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
 //                iv_item_habit_background.setBackgroundColorWithRadius(ContextCompat.getColor(context, R.color.colorAccent), 7)
             }
 
+//            val bottomBack = ll_item_habit_bottom_back.backgroundDrawable as GradientDrawable
+//            bottomBack.cornerRadius = context.convertDpToPixel(7f)
+
             // item
             if (item is PlusHabit) {
                 tv_item_habit_title.visibility = View.GONE
