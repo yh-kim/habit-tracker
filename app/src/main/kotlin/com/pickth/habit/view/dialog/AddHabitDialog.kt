@@ -43,7 +43,7 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback
 class AddHabitDialog(context: Context, val listener: View.OnClickListener, val test: String, val habit: Habit?) : Dialog(context, R.style.AppTheme_NoTitle_Translucent) {
     constructor(context: Context, listener: View.OnClickListener) : this(context, listener, "", null)
 
-    var itemColor = habit?.color ?: ContextCompat.getColor(context, R.color.colorAccent)
+    var itemColor = habit?.color ?: ContextCompat.getColor(context, R.color.colorMainAccent)
 //    val colorPicker = ColorPicker(
 //            context as Activity, // Context
 ////            255, // Default Alpha value

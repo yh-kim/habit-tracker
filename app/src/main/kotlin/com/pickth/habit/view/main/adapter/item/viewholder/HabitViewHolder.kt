@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.pickth.habit.view.main.adapter
+package com.pickth.habit.view.main.adapter.item.viewholder
 
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.MotionEventCompat
 import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
 import android.view.View
+import com.google.android.gms.ads.AdLoader
 import com.pickth.habit.R
 import com.pickth.habit.extensions.setBackgroundColorWithRadius
 import com.pickth.habit.extensions.setHideAlphaAnimation
@@ -38,10 +39,13 @@ import org.jetbrains.anko.*
  * Created by yonghoon on 2017-08-09
  */
 
-class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragListener: OnHabitDragListener) : RecyclerView.ViewHolder(view), HabitTouchHelperViewHolder {
+class HabitViewHolder(view: View, val listener: OnHabitTouchListener, val dragListener: OnHabitDragListener) : MainViewHolder(view), HabitTouchHelperViewHolder {
     private var isDrag = false
 
-    fun onBind(item: Habit, position: Int) {
+    override fun onBind() {
+    }
+
+    override fun onBind(item: Habit, position: Int) {
         with(itemView) {
 
             // background color
@@ -129,7 +133,7 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
                                 tv_item_habit_title_drag.visibility = View.VISIBLE
                                 iv_item_habit_drag_icon.visibility = View.VISIBLE
                                 context.toast(context.getString(R.string.move_habit))
-//                                dragListener.onStartDrag(this@MainViewHolder)
+//                                dragListener.onStartDrag(this@HabitViewHolder)
                             }
                             1 -> {
                                 listener.onItemModify(position, item)
@@ -147,7 +151,7 @@ class MainViewHolder(view: View, val listener: OnHabitTouchListener, val dragLis
             setOnTouchListener { v, motionEvent ->
                 if ((MotionEventCompat.getActionMasked(motionEvent) ==
                         MotionEvent.ACTION_DOWN )&& isDrag) {
-                    dragListener.onStartDrag(this@MainViewHolder)
+                    dragListener.onStartDrag(this@HabitViewHolder)
                 }
                 isDrag = false
                 false

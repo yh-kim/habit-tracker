@@ -28,6 +28,10 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
 
 dependencies {
@@ -39,6 +43,9 @@ dependencies {
     implementation "com.android.support:design:$support_libs"
     implementation "com.android.support:support-vector-drawable:$support_libs"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // firebase
+    implementation 'com.google.firebase:firebase-ads:11.8.0'
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"

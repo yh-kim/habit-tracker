@@ -36,6 +36,8 @@ import org.jetbrains.anko.toast
 import android.content.ClipData
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.MobileAds
 import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.util.HabitTouchHelperCallback
 import com.pickth.habit.util.LinearSpacingItemDecoration
@@ -121,7 +123,11 @@ class MainActivity: BaseActivity(), MainContract.View {
             setTouchHelper(mHabitTouchHelper)
 
             addHabitItems(HabitManager.getHabits(this@MainActivity))
+            addPlusView()
         }
+
+        // use ad
+        useAd()
     }
 
     override fun showToast(msg: String) {
@@ -223,5 +229,18 @@ class MainActivity: BaseActivity(), MainContract.View {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun useAd() {
+        val ADMOB_APP_ID = this.getString(R.string.google_app_id)
+        val ADMOB_AD_UNIT_ID = this.getString(R.string.google_unit_id)
+
+        // admob
+        MobileAds.initialize(this, ADMOB_APP_ID)
+
+        // ad view
+        val builder = AdLoader.Builder(this, ADMOB_AD_UNIT_ID)
+
+        mPresenter.useAd(builder)
     }
 }

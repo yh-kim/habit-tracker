@@ -18,6 +18,7 @@ package com.pickth.habit.view.main
 
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
+import com.google.android.gms.ads.AdLoader
 import com.google.gson.Gson
 import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.util.HabitManager
@@ -26,7 +27,9 @@ import com.pickth.habit.listener.OnHabitDragListener
 import com.pickth.habit.util.StringUtil
 import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.MainAdapterContract
-import com.pickth.habit.view.main.adapter.MainViewHolder
+import com.pickth.habit.view.main.adapter.item.AdItem
+import com.pickth.habit.view.main.adapter.item.PlusHabit
+import com.pickth.habit.view.main.adapter.item.viewholder.HabitViewHolder
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -55,6 +58,11 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
         mAdapterModel = model
     }
 
+    override fun useAd(builder: AdLoader.Builder) {
+        mAdapterView.setAdBuilder(builder)
+        mAdapterModel.addItem(AdItem(), mAdapterModel.getItemCount())
+    }
+
     override fun setTouchHelper(habitTouchHelper: ItemTouchHelper) {
         mHabitTouchHelper = habitTouchHelper
     }
@@ -77,7 +85,7 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
 
     override fun moveHabitItem(startPosition: Int, endPosition: Int) {
         // 마지막 아이템이면
-        if(mAdapterModel.getItemCount() - 1 == endPosition) {
+        if(mAdapterModel.getHabitItemCount() <= endPosition) {
             return
         }
 
@@ -128,7 +136,7 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
 
     override fun refreshAllData() {
         Log.v(TAG, "refreshAllData")
-        for(i in 0..getItemCount()-1) {
+        for(i in 0 until getItemCount() - 1) {
             mAdapterModel.notifyChanged(i)
         }
 
@@ -141,11 +149,15 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
             )
             .toString()
 
-    override fun onStartDrag(holder: MainViewHolder) {
+    override fun onStartDrag(holder: HabitViewHolder) {
         mHabitTouchHelper.startDrag(holder)
     }
 
     override fun onUpdateItems() {
         refreshAllData()
+    }
+
+    fun addPlusView() {
+        mAdapterModel.addItem(PlusHabit(), mAdapterModel.getItemCount())
     }
 }

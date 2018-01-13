@@ -19,11 +19,17 @@ package com.pickth.habit.view.main.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.formats.NativeContentAdView
 import com.pickth.habit.R
 import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.listener.OnHabitDragListener
+import com.pickth.habit.view.main.adapter.item.AdItem
 import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.item.PlusHabit
+import com.pickth.habit.view.main.adapter.item.viewholder.AdViewHolder
+import com.pickth.habit.view.main.adapter.item.viewholder.HabitViewHolder
+import com.pickth.habit.view.main.adapter.item.viewholder.MainViewHolder
 import kotlin.collections.ArrayList
 
 /**
@@ -34,39 +40,69 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 
     companion object {
         val HABIT_TYPE_ITEM = 0
-        val HABIT_TYPE_LAST = 1
+        val HABIT_TYPE_PLUS = 1
+        val HABIT_TYPE_AD = 2
     }
 
-    private var mItems = ArrayList<Habit>().apply {
-        add(PlusHabit())
-    }
+    private var mIsUsedAd = false
+
+    private var mItems = ArrayList<Habit>()
+    private lateinit var mAdBuilder: AdLoader.Builder
     private lateinit var mListener: OnHabitTouchListener
     private lateinit var mDragListener: OnHabitDragListener
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainViewHolder {
-        val itemView = LayoutInflater
-                .from(parent?.context)
-                .inflate(R.layout.item_habit_long, parent, false)
+        if (viewType == HABIT_TYPE_AD) {
+            val mAdView = LayoutInflater
+                    .from(parent?.context)
+                    .inflate(R.layout.ad_content, parent, false) as NativeContentAdView
+            return AdViewHolder(mAdView, mAdBuilder)
+        } else {
 
-        return MainViewHolder(itemView, mListener, mDragListener)
+            val itemView = LayoutInflater
+                    .from(parent?.context)
+                    .inflate(R.layout.item_habit_long, parent, false)
+
+            return HabitViewHolder(itemView, mListener, mDragListener)
+        }
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.onBind(mItems[position], position)
+        if(getItemViewType(position) == HABIT_TYPE_AD) {
+            holder.onBind()
+        } else {
+            holder.onBind(mItems[position], position)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(position == itemCount - 1) {
+        if(mItems[position] is PlusHabit) {
             // last item
-            return HABIT_TYPE_LAST
+            return HABIT_TYPE_PLUS
+        } else if(mItems[position] is AdItem) {
+            return HABIT_TYPE_AD
         } else {
             return HABIT_TYPE_ITEM
         }
     }
 
+    override fun setAdBuilder(builder: AdLoader.Builder) {
+        mAdBuilder = builder
+        mIsUsedAd = true
+    }
+
     override fun getItemCount(): Int = mItems.size
 
-    override fun getHabitItemCount(): Int = mItems.size - 1
+    override fun getHabitItemCount(): Int {
+        var count = itemCount
+        if(isExistPlus())
+            count--
+
+        if(mIsUsedAd)
+            count--
+
+        return count
+    }
 
     override fun setOnHabitClickListener(listener: OnHabitTouchListener) {
         mListener = listener
@@ -82,6 +118,12 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
         notifyItemInserted(getHabitItemCount())
     }
 
+    override fun addItem(item: Habit, position: Int) {
+        mItems.add(position, item)
+//        notifyDataSetChanged()
+        notifyItemInserted(position)
+    }
+
     override fun addItems(list: ArrayList<Habit>) {
         for(i in list) addItem(i)
     }
@@ -91,7 +133,10 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     override fun getAllItems(): ArrayList<Habit> = mItems
 
     override fun getHabitItems(): ArrayList<Habit> {
-        return (mItems.clone() as ArrayList<Habit>).apply { removeAt(itemCount - 1) }
+        return (mItems.clone() as ArrayList<Habit>).apply {
+            removeAt(itemCount-1) // ad
+            removeAt(itemCount-2) // plus
+        }
     }
 
     override fun removeItem(position: Int): Boolean {
@@ -105,7 +150,11 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
 
     override fun removeAllItems() {
         mItems.clear()
-        mItems.add(PlusHabit())
+
+        addItem(PlusHabit(), itemCount)
+        if(mIsUsedAd)
+            addItem(AdItem(), itemCount)
+
         notifyDataSetChanged()
     }
 
@@ -125,4 +174,20 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     override fun notifyChanged(position: Int) {
         notifyItemChanged(position)
     }
+
+    override fun isExistPlus(): Boolean {
+        if(mIsUsedAd) {
+            if(itemCount > 1) {
+                // 아이템이 있는 상황
+                return mItems[itemCount-2] is PlusHabit
+            } else {
+                // all remove 하고 추가할 때, 0이면 false 1이면 확인
+                return itemCount == 1 && mItems[itemCount-1] is PlusHabit
+            }
+        } else {
+            return itemCount>0 && mItems[itemCount-1] is PlusHabit
+        }
+    }
+
+    override fun getIsUsedAd(): Boolean = mIsUsedAd
 }
