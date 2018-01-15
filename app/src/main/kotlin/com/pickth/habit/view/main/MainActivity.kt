@@ -46,6 +46,9 @@ import com.pickth.habit.view.main.adapter.item.Habit
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
+import com.google.firebase.analytics.FirebaseAnalytics
+
+
 
 
 /**
@@ -53,6 +56,9 @@ import org.jetbrains.anko.yesButton
  */
 
 class MainActivity: BaseActivity(), MainContract.View {
+
+    // firebase
+    private lateinit var mFirebaseAnalytics: FirebaseAnalytics
 
     private var mDay: String = ""
     private lateinit var mPresenter: MainPresenter
@@ -87,6 +93,9 @@ class MainActivity: BaseActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d(TAG, "onCreate")
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         // actionbar
         setSupportActionBar(main_toolbar)
@@ -232,8 +241,8 @@ class MainActivity: BaseActivity(), MainContract.View {
     }
 
     fun useAd() {
-        val ADMOB_APP_ID = this.getString(R.string.google_app_id)
-        val ADMOB_AD_UNIT_ID = this.getString(R.string.google_unit_id)
+        val ADMOB_APP_ID = this.getString(R.string.admob_app_id)
+        val ADMOB_AD_UNIT_ID = this.getString(R.string.admob_unit_id)
 
         // admob
         MobileAds.initialize(this, ADMOB_APP_ID)
