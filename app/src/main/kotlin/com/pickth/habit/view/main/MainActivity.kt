@@ -36,7 +36,6 @@ import org.jetbrains.anko.toast
 import android.content.ClipData
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
-import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.MobileAds
 import com.pickth.habit.listener.OnHabitMoveListener
 import com.pickth.habit.util.HabitTouchHelperCallback
@@ -136,7 +135,7 @@ class MainActivity: BaseActivity(), MainContract.View {
         }
 
         // use ad
-        useAd()
+//        useAd()
     }
 
     override fun showToast(msg: String) {
@@ -189,8 +188,8 @@ class MainActivity: BaseActivity(), MainContract.View {
     }
 
     override fun onPause() {
-        super.onPause()
         unregisterReceiver(mChangeDateBroadcastReceiver)
+        super.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -247,9 +246,10 @@ class MainActivity: BaseActivity(), MainContract.View {
         // admob
         MobileAds.initialize(this, ADMOB_APP_ID)
 
+        // native add
         // ad view
-        val builder = AdLoader.Builder(this, ADMOB_AD_UNIT_ID)
-
-        mPresenter.useAd(builder)
+//        val builder = AdLoader.Builder(this, ADMOB_AD_UNIT_ID)
+//
+//        mPresenter.useAd(builder)
     }
 }
