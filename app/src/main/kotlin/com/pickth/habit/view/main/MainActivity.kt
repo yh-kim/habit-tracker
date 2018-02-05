@@ -18,36 +18,33 @@ package com.pickth.habit.view.main
 
 import android.appwidget.AppWidgetManager
 import android.content.*
+import android.content.ClipData
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
-import com.pickth.habit.util.HabitManager
-import com.pickth.habit.view.dialog.AddHabitDialog
-import com.pickth.habit.view.dialog.ImportHabitDialog
-import com.pickth.habit.view.main.adapter.MainAdapter
-import com.pickth.habit.widget.HabitWidget
-import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.toast
-import android.content.ClipData
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.helper.ItemTouchHelper
-import com.google.android.gms.ads.MobileAds
 import com.pickth.habit.listener.OnHabitMoveListener
+import com.pickth.habit.util.HabitManager
 import com.pickth.habit.util.HabitTouchHelperCallback
 import com.pickth.habit.util.LinearSpacingItemDecoration
 import com.pickth.habit.util.StringUtil
+import com.pickth.habit.view.dialog.AddHabitDialog
+import com.pickth.habit.view.dialog.ImportHabitDialog
+import com.pickth.habit.view.main.adapter.MainAdapter
 import com.pickth.habit.view.main.adapter.item.Habit
+import com.pickth.habit.widget.HabitWidget
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
-import com.google.firebase.analytics.FirebaseAnalytics
-
-
 
 
 /**
@@ -113,7 +110,7 @@ class MainActivity: BaseActivity(), MainContract.View {
             // grid
 //            layoutManager = GridLayoutManager(context, 2)
 //            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
-            recycledViewPool.setMaxRecycledViews(MainAdapter.HABIT_TYPE_ITEM, 0)
+            recycledViewPool.setMaxRecycledViews(0, 0)
         }
 
         mHabitTouchHelper = ItemTouchHelper(HabitTouchHelperCallback(object: OnHabitMoveListener {
@@ -131,11 +128,8 @@ class MainActivity: BaseActivity(), MainContract.View {
             setTouchHelper(mHabitTouchHelper)
 
             addHabitItems(HabitManager.getHabits(this@MainActivity))
-            addPlusView()
         }
 
-        // use ad
-//        useAd()
     }
 
     override fun showToast(msg: String) {
@@ -237,19 +231,5 @@ class MainActivity: BaseActivity(), MainContract.View {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    fun useAd() {
-        val ADMOB_APP_ID = this.getString(R.string.admob_app_id)
-        val ADMOB_AD_UNIT_ID = this.getString(R.string.admob_unit_id)
-
-        // admob
-        MobileAds.initialize(this, ADMOB_APP_ID)
-
-        // native add
-        // ad view
-//        val builder = AdLoader.Builder(this, ADMOB_AD_UNIT_ID)
-//
-//        mPresenter.useAd(builder)
     }
 }

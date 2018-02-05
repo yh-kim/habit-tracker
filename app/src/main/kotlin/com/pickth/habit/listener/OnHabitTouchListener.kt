@@ -27,5 +27,4 @@ interface OnHabitTouchListener {
     fun onItemUnCheck(position: Int)
     fun onItemRemove(position: Int)
     fun onItemModify(position: Int, habit: Habit)
-    fun onLastItemClick()
 }

@@ -64,9 +64,6 @@ class ImportHabitDialog(context: Context, val listener: View.OnClickListener): D
                     mAdapter.removeItem(position)
                     mHabits = mAdapter.getItems()
                 }
-
-                override fun onLastItemClick() {
-                }
             })
         }
 
