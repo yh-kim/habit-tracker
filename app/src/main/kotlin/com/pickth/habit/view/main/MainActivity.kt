@@ -90,7 +90,7 @@ class MainActivity: BaseActivity(), MainContract.View {
         setContentView(R.layout.activity_main)
         Log.d(TAG, "onCreate")
 
-        // Obtain the FirebaseAnalytics instance.
+        // Obtain the Firebase Analytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         // actionbar
@@ -102,15 +102,14 @@ class MainActivity: BaseActivity(), MainContract.View {
 
         mRecyclerView = rv_main.apply {
             adapter = mAdapter
+            recycledViewPool.setMaxRecycledViews(0, 0)
 
             // linear
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             addItemDecoration(LinearSpacingItemDecoration(context,8, true))
-
             // grid
 //            layoutManager = GridLayoutManager(context, 2)
 //            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))
-            recycledViewPool.setMaxRecycledViews(0, 0)
         }
 
         mHabitTouchHelper = ItemTouchHelper(HabitTouchHelperCallback(object: OnHabitMoveListener {
@@ -193,15 +192,18 @@ class MainActivity: BaseActivity(), MainContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+            R.id.habit_add -> {
+                showAddHabitDialog()
+            }
             R.id.habit_export -> {
                 val habits = mPresenter.getHabitsWithJson()
 
-                // 복사
+                // copy
                 val clipboardManager = this.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clipData = ClipData.newPlainText("label", habits)
                 clipboardManager.primaryClip = clipData
 
-                // 공유
+                // share
                 val habitShareIntent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, habits)
@@ -212,10 +214,10 @@ class MainActivity: BaseActivity(), MainContract.View {
             }
             R.id.habit_import -> {
                 importHabitDialog = ImportHabitDialog(this, View.OnClickListener {
-                    val habit = importHabitDialog.getHabits()
-                    if(habit != null) {
-                        for(item in habit) {
-                            mPresenter.addHabitItem(item)
+                    val habits = importHabitDialog.getHabits()
+                    if(habits != null) {
+                        for(habit in habits) {
+                            mPresenter.addHabitItem(habit)
                         }
                     }
 
@@ -231,5 +233,26 @@ class MainActivity: BaseActivity(), MainContract.View {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(getSharedPreferences("habits", Context.MODE_PRIVATE).getBoolean("active", false)) {
+            finish()
+        } else {
+            getSharedPreferences("habits", Context.MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("active", true)
+                    .apply()
+        }
+
+    }
+
+    override fun onStop() {
+        getSharedPreferences("habits", Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean("active", false)
+                .apply()
+        super.onStop()
     }
 }

@@ -34,7 +34,7 @@ object HabitManager {
     fun getHabits(context: Context): ArrayList<Habit> {
         if(mHabits.size == 0) {
             val json = context
-                    .getSharedPreferences("habits", 0)
+                    .getSharedPreferences("habits", Context.MODE_PRIVATE)
                     .getString("habits", "")
 
             if(json == "") return mHabits
@@ -47,7 +47,7 @@ object HabitManager {
     }
 
     fun notifyDataSetChanged(context: Context) {
-        context.getSharedPreferences("habits", 0)
+        context.getSharedPreferences("habits", Context.MODE_PRIVATE)
                 .edit()
                 .putString("habits", Gson().toJson(mHabits).toString())
                 .apply()
@@ -55,7 +55,7 @@ object HabitManager {
 
     fun notifyDataSetChanged(context: Context, habits: ArrayList<Habit>) {
         mHabits = habits
-        context.getSharedPreferences("habits", 0)
+        context.getSharedPreferences("habits", Context.MODE_PRIVATE)
                 .edit()
                 .putString("habits", Gson().toJson(mHabits).toString())
                 .apply()
@@ -80,7 +80,7 @@ object HabitManager {
         getHabits(context).clear()
         notifyDataSetChanged(context)
 //        context
-//                .getSharedPreferences("habits", 0)
+//                .getSharedPreferences("habits", Context.MODE_PRIVATE)
 //                .edit()
 //                .clear()
 //                .apply()
