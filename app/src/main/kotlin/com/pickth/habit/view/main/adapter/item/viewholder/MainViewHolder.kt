@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.pickth.habit.listener
+package com.pickth.habit.view.main.adapter.item.viewholder
 
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import com.google.android.gms.ads.AdLoader
 import com.pickth.habit.view.main.adapter.item.Habit
 
 /**
- * Created by yonghoon on 2017-08-10
+ * Created by yonghoon on 2018-01-13
+ * Blog   : http://blog.pickth.com
  */
 
-interface OnHabitTouchListener {
-    fun onItemCheck(position: Int)
-    fun onItemUnCheck(position: Int)
-    fun onItemRemove(position: Int)
-    fun onItemModify(position: Int, habit: Habit)
-    fun onLastItemClick()
+abstract class MainViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    abstract fun onBind()
+    abstract fun onBind(item: Habit, position: Int)
 }

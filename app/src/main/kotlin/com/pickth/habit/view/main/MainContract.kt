@@ -18,10 +18,12 @@ package com.pickth.habit.view.main
 
 import android.content.Context
 import android.support.v7.widget.helper.ItemTouchHelper
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.formats.NativeContentAdView
 import com.pickth.habit.base.mvp.BasePresenter
 import com.pickth.habit.base.mvp.BaseView
-import com.pickth.habit.view.main.adapter.MainAdapterContract
 import com.pickth.habit.view.main.adapter.item.Habit
+import com.pickth.habit.view.main.adapter.MainAdapterContract
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -40,6 +42,7 @@ interface MainContract {
     interface Presenter: BasePresenter {
         fun setAdapterView(view: MainAdapterContract.View)
         fun setAdapterModel(model: MainAdapterContract.Model)
+        fun useAd(builder: AdLoader.Builder)
         fun setTouchHelper(habitTouchHelper: ItemTouchHelper)
         fun addHabitItem(item: Habit)
         fun addHabitItems(list: ArrayList<Habit>)

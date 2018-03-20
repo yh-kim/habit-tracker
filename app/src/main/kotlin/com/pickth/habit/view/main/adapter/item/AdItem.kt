@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package com.pickth.habit.listener
-
-import com.pickth.habit.view.main.adapter.item.Habit
+package com.pickth.habit.view.main.adapter.item
 
 /**
- * Created by yonghoon on 2017-08-10
+ * Created by yonghoon on 2018-01-13
+ * Blog   : http://blog.pickth.com
  */
 
-interface OnHabitTouchListener {
-    fun onItemCheck(position: Int)
-    fun onItemUnCheck(position: Int)
-    fun onItemRemove(position: Int)
-    fun onItemModify(position: Int, habit: Habit)
-    fun onLastItemClick()
-}
+class AdItem: Habit()

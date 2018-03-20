@@ -18,6 +18,7 @@ package com.pickth.habit.view.main
 
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
+import com.google.android.gms.ads.AdLoader
 import com.google.gson.Gson
 import com.pickth.habit.base.mvp.BaseView
 import com.pickth.habit.util.HabitManager
@@ -26,7 +27,9 @@ import com.pickth.habit.listener.OnHabitDragListener
 import com.pickth.habit.util.StringUtil
 import com.pickth.habit.view.main.adapter.item.Habit
 import com.pickth.habit.view.main.adapter.MainAdapterContract
-import com.pickth.habit.view.main.adapter.viewholder.HabitViewHolder
+import com.pickth.habit.view.main.adapter.item.AdItem
+import com.pickth.habit.view.main.adapter.item.PlusHabit
+import com.pickth.habit.view.main.adapter.item.viewholder.HabitViewHolder
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -34,7 +37,7 @@ import com.pickth.habit.view.main.adapter.viewholder.HabitViewHolder
 
 class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragListener {
 
-    val TAG = javaClass.simpleName
+    val TAG = "${javaClass.simpleName}"
 
     private lateinit var mView: MainContract.View
     private lateinit var mAdapterView: MainAdapterContract.View
@@ -55,11 +58,16 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
         mAdapterModel = model
     }
 
+    override fun useAd(builder: AdLoader.Builder) {
+        mAdapterView.setAdBuilder(builder)
+        mAdapterModel.addItem(AdItem(), mAdapterModel.getItemCount())
+    }
+
     override fun setTouchHelper(habitTouchHelper: ItemTouchHelper) {
         mHabitTouchHelper = habitTouchHelper
     }
 
-    override fun getItemCount(): Int = mAdapterModel.getItemCount()
+    override fun getItemCount(): Int = mAdapterModel.getHabitItemCount()
 
     override fun addHabitItem(item: Habit) {
         mAdapterModel.addItem(item)
@@ -76,31 +84,35 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
     }
 
     override fun moveHabitItem(startPosition: Int, endPosition: Int) {
+        // 마지막 아이템이면
+        if(mAdapterModel.getHabitItemCount() <= endPosition) {
+            return
+        }
+
         mAdapterModel.swapItem(startPosition, endPosition)
-        HabitManager.notifyDataSetChanged(mView.getContext(), mAdapterModel.getAllItems())
+        HabitManager.notifyDataSetChanged(mView.getContext(), mAdapterModel.getHabitItems())
 //        HabitManager.swapHabit(mView.getContext(), startPosition, endPosition)
     }
 
     override fun onItemCheck(position: Int) {
-        if(mAdapterModel.getItem(position).days.isEmpty() || mAdapterModel.getItem(position).days[0] != StringUtil.getCurrentDay()) {
-            Log.i(TAG, "isChecked")
-            mAdapterModel.getItem(position).days.add(0, StringUtil.getCurrentDay())
+        mAdapterModel.notifyChanged(position)
+        mAdapterModel.getItem(position).days.add(0, StringUtil.getCurrentDay())
 
-            HabitManager.notifyDataSetChanged(mView.getContext())
-            mView.updateWidget()
-            mAdapterModel.notifyChanged(position)
-        }
+        HabitManager.notifyDataSetChanged(mView.getContext())
+        mView.updateWidget()
     }
 
     override fun onItemUnCheck(position: Int) {
-        if(mAdapterModel.getItemCount() != 0 && mAdapterModel.getItem(position).days[0] == StringUtil.getCurrentDay()) {
-            Log.i(TAG, "isUnChecked")
-            mAdapterModel.getItem(position).days.removeAt(0)
+        mAdapterModel.notifyChanged(position)
 
-            HabitManager.notifyDataSetChanged(mView.getContext())
-            mView.updateWidget()
-            mAdapterModel.notifyChanged(position)
+        if(mAdapterModel.getItem(position).days[0] == StringUtil.getCurrentDay()) {
+
         }
+
+        mAdapterModel.getItem(position).days.removeAt(0)
+
+        HabitManager.notifyDataSetChanged(mView.getContext())
+        mView.updateWidget()
     }
 
     override fun onItemRemove(position: Int) {
@@ -110,6 +122,11 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
 
     override fun onItemModify(position: Int, habit: Habit) {
         mView.showModifyHabitDialog(position, habit)
+    }
+
+    override fun onLastItemClick() {
+        mView.showAddHabitDialog()
+//        mView.scrollToLastItem()
     }
 
     override fun changeItem(position: Int, habit: Habit) {
@@ -138,5 +155,9 @@ class MainPresenter: MainContract.Presenter, OnHabitTouchListener, OnHabitDragLi
 
     override fun onUpdateItems() {
         refreshAllData()
+    }
+
+    fun addPlusView() {
+        mAdapterModel.addItem(PlusHabit(), mAdapterModel.getItemCount())
     }
 }
