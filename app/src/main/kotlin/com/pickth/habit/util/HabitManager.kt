@@ -32,62 +32,91 @@ object HabitManager {
     val TAG = "${javaClass.simpleName}"
 
     fun getHabits(context: Context): ArrayList<Habit> {
+        val applicationContext = context.applicationContext
         if(mHabits.size == 0) {
-            val json = context
-                    .getSharedPreferences("habits", 0)
-                    .getString("habits", "")
+            val json = getHabitInfoWithPref(applicationContext)
+            if(json != "") {
+                // items 를 파일에 저장하고 Preferences 에는 ""를 저장시킨다.
+                val type = object: TypeToken<ArrayList<Habit>>(){}.type
+                mHabits = Gson().fromJson<ArrayList<Habit>>(json, type)
+                notifyDataSetChanged(applicationContext)
+                setNullIntoPref(applicationContext)
+                return mHabits
+            }
 
-            if(json == "") return mHabits
-
-            val type = object: TypeToken<ArrayList<Habit>>(){}.type
-            mHabits = Gson().fromJson<ArrayList<Habit>>(json, type)
+            val habits = getHabitInfoWithFile()
+            if(habits != null) {
+                mHabits = habits
+            }
         }
 
         return mHabits
     }
 
-    fun notifyDataSetChanged(context: Context) {
-        context.getSharedPreferences("habits", 0)
+    private fun getHabitInfoWithPref(context: Context): String = context.applicationContext
+            .getSharedPreferences("habits", Context.MODE_PRIVATE)
+            .getString("habits", "")
+
+    private fun getHabitInfoWithFile(): ArrayList<Habit>? {
+        return null
+    }
+
+    private fun setHabitInfoWithFile(habits: ArrayList<Habit>) {
+
+    }
+
+    private fun setNullIntoPref(context: Context) {
+        val applicationContext = context.applicationContext
+        applicationContext.getSharedPreferences("habits", Context.MODE_PRIVATE)
                 .edit()
-                .putString("habits", Gson().toJson(mHabits).toString())
+                .putString("habits", "")
                 .apply()
+    }
+
+    fun notifyDataSetChanged() {
+        setHabitInfoWithFile(mHabits)
+    }
+
+    fun notifyDataSetChanged(context: Context) {
+        setHabitInfoWithFile(mHabits)
     }
 
     fun notifyDataSetChanged(context: Context, habits: ArrayList<Habit>) {
-        mHabits = habits
-        context.getSharedPreferences("habits", 0)
-                .edit()
-                .putString("habits", Gson().toJson(mHabits).toString())
-                .apply()
+        setHabitInfoWithFile(habits)
     }
 
     fun addHabit(context: Context, habit: Habit) {
-        getHabits(context).add(habit)
-        notifyDataSetChanged(context)
+        val applicationContext = context.applicationContext
+        getHabits(applicationContext).add(habit)
+        notifyDataSetChanged()
     }
 
     fun removeHabit(context: Context, position: Int) {
-        getHabits(context).removeAt(position)
-        notifyDataSetChanged(context)
+        val applicationContext = context.applicationContext
+        getHabits(applicationContext).removeAt(position)
+        notifyDataSetChanged()
     }
 
     fun swapHabit(context: Context, startPosition: Int, endPosition: Int) {
-        Collections.swap(getHabits(context), startPosition, endPosition)
-        notifyDataSetChanged(context)
+        val applicationContext = context.applicationContext
+        Collections.swap(getHabits(applicationContext), startPosition, endPosition)
+        notifyDataSetChanged()
     }
 
     fun removeAllHabit(context: Context) {
-        getHabits(context).clear()
-        notifyDataSetChanged(context)
+        val applicationContext = context.applicationContext
+        getHabits(applicationContext).clear()
+        notifyDataSetChanged()
 //        context
-//                .getSharedPreferences("habits", 0)
+//                .getSharedPreferences("habits", Context.MODE_PRIVATE)
 //                .edit()
 //                .clear()
 //                .apply()
     }
 
     fun logHabitStatus(context: Context) {
-        for(i in getHabits(context)) {
+        val applicationContext = context.applicationContext
+        for(i in getHabits(applicationContext)) {
             Log.v(TAG, i.toString())
         }
     }

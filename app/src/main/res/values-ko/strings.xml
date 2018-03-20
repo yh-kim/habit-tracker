@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">습관꾼</string>
 
+    <!-- menu -->
+    <string name="add_habit">습관 추가하기</string>
     <string name="export_habit">습관 내보내기</string>
     <string name="import_habit">습관 가져오기</string>
     <string name="remove_all_habits">모든 습관 지우기</string>

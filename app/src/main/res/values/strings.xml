@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Habit Tracker</string>
 
+    <!-- menu -->
+    <string name="add_habit">Add habit</string>
     <string name="export_habit">Export habits</string>
     <string name="import_habit">Import habits</string>
     <string name="remove_all_habits">Remove all habits</string>

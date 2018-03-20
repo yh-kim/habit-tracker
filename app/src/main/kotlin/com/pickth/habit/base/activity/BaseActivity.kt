@@ -24,5 +24,5 @@ import org.jetbrains.anko.AnkoLogger
  */
 
 open class BaseActivity: AppCompatActivity(), AnkoLogger {
-    val TAG = "${javaClass.simpleName}"
+    val TAG = javaClass.simpleName
 }

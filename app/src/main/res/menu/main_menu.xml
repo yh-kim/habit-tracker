@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:gachi="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/habit_add"
+        android:title="@string/add_habit"
+        gachi:showAsAction="collapseActionView" />
+    <item
         android:id="@+id/habit_export"
         android:title="@string/export_habit"
         gachi:showAsAction="collapseActionView" />

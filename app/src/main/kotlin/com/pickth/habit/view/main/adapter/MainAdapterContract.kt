@@ -16,8 +16,6 @@
 
 package com.pickth.habit.view.main.adapter
 
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.formats.NativeContentAdView
 import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.listener.OnHabitDragListener
 import com.pickth.habit.view.main.adapter.item.Habit
@@ -30,24 +28,19 @@ interface MainAdapterContract {
     interface View {
         fun setOnHabitClickListener(listener: OnHabitTouchListener)
         fun setOnHabitDragListener(listener: OnHabitDragListener)
-        fun setAdBuilder(builder: AdLoader.Builder)
     }
 
     interface Model {
         fun getItemCount(): Int
-        fun getHabitItemCount(): Int
         fun addItem(item: Habit)
         fun addItem(item: Habit, position: Int)
         fun addItems(list: ArrayList<Habit>)
         fun getItem(position: Int): Habit
         fun getAllItems(): ArrayList<Habit>
-        fun getHabitItems(): ArrayList<Habit>
         fun removeItem(position: Int): Boolean
         fun removeAllItems()
         fun changeItem(position: Int, habit: Habit)
         fun swapItem(startPosition: Int, endPosition: Int)
         fun notifyChanged(position: Int)
-        fun isExistPlus(): Boolean
-        fun getIsUsedAd(): Boolean
     }
 }
