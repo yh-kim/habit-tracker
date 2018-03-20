@@ -169,6 +169,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
         mItems.remove(item)
         mItems.add(endPosition, item)
         notifyItemMoved(startPosition, endPosition)
+        notifyItemChanged(endPosition)
     }
 
     override fun notifyChanged(position: Int) {
