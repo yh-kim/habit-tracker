@@ -135,7 +135,7 @@ class MainAdapter: RecyclerView.Adapter<MainViewHolder>(), MainAdapterContract.V
     override fun getHabitItems(): ArrayList<Habit> {
         return (mItems.clone() as ArrayList<Habit>).apply {
             removeAt(itemCount-1) // ad
-            removeAt(itemCount-2) // plus
+//            removeAt(itemCount-2) // plus
         }
     }
 
