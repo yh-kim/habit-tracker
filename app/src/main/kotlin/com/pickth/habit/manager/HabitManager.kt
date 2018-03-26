@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.pickth.habit.util
+package com.pickth.habit.manager
 
 import android.content.Context
 import android.util.Log
@@ -29,7 +29,7 @@ import java.util.*
 
 object HabitManager {
     private var mHabits = ArrayList<Habit>()
-    val TAG = "${javaClass.simpleName}"
+    val TAG = javaClass.simpleName
 
     fun getHabits(context: Context): ArrayList<Habit> {
         val applicationContext = context.applicationContext

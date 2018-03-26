@@ -26,7 +26,8 @@ import android.view.View
 import android.widget.RemoteViews
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
-import com.pickth.habit.util.HabitManager
+import com.pickth.habit.manager.HabitManager
+import com.pickth.habit.manager.HabitWidgetManager
 import com.pickth.habit.util.StringUtil
 import kotlinx.android.synthetic.main.activity_habit_config.*
 import org.jetbrains.anko.alert

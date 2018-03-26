@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.pickth.habit.util
+package com.pickth.habit.manager
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -23,6 +23,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.support.v4.app.NotificationCompat
 import com.pickth.habit.R
 import com.pickth.habit.view.main.MainActivity
@@ -35,13 +37,14 @@ import com.pickth.habit.view.main.MainActivity
 object HabitNotificationManager {
     // https://developer.android.com/guide/topics/ui/notifiers/notifications.html?hl=ko#CreateNotification
     fun showNoti(context: Context) {
-        val resultPendingIntent = PendingIntent.getActivity(context,
+        val applicationContext = context.applicationContext
+        val resultPendingIntent = PendingIntent.getActivity(applicationContext,
                 0,
-                Intent(context, MainActivity::class.java),
+                Intent(applicationContext, MainActivity::class.java),
                 PendingIntent.FLAG_UPDATE_CURRENT)
 
         // ui, task
-        val mBuilder = NotificationCompat.Builder(context, "test").apply {
+        val mBuilder = NotificationCompat.Builder(applicationContext, "test").apply {
             setSmallIcon(R.drawable.ic_back)
             setAutoCancel(true)
             setTicker("tt")
@@ -52,11 +55,12 @@ object HabitNotificationManager {
             setWhen(System.currentTimeMillis())
         }
 
-        val mNotifyMgr = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val mNotifyMgr = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val channel: NotificationChannel
+        if (VERSION.SDK_INT >= VERSION_CODES.O) {
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel("test", "name", importance)
+            channel = NotificationChannel("test", "name", importance)
             mNotifyMgr.createNotificationChannel(channel)
         }
 

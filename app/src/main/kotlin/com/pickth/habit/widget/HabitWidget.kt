@@ -25,18 +25,17 @@ import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import com.pickth.habit.R
-import com.pickth.habit.util.HabitManager
+import com.pickth.habit.manager.HabitManager
 import com.pickth.habit.util.StringUtil
 import android.content.ComponentName
-
-
+import com.pickth.habit.manager.HabitWidgetManager
 
 /**
  * Created by yonghoon on 2017-08-14
  */
 
 class HabitWidget: AppWidgetProvider() {
-    val TAG = "${javaClass.simpleName}"
+    val TAG = javaClass.simpleName
 
     companion object {
         val HABIT_CLICK = "android.action.HABIT_CLICK"
@@ -60,7 +59,7 @@ class HabitWidget: AppWidgetProvider() {
 
             views.setTextViewText(R.id.tv_widget_habit_title, habit.title)
             if(!habit.days.isEmpty()) {
-                if(habit.days[0] == StringUtil.getCurrentDay())  {
+                if(habit.days[0] == StringUtil.getCurrentDay()) {
                     views.setViewVisibility(R.id.iv_widget_habit_select, View.VISIBLE)
                 } else {
                     views.setViewVisibility(R.id.iv_widget_habit_select, View.GONE)
@@ -93,7 +92,7 @@ class HabitWidget: AppWidgetProvider() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.v(TAG, "Widget onReceive")
         var views = RemoteViews(context.packageName, R.layout.widget_habit)
-        if (intent.action.startsWith(ACTION_CLICKED)) {
+        if(intent.action.startsWith(ACTION_CLICKED)) {
             var id = intent.action.substring(ACTION_CLICKED.length).toInt()
             val habitPosition = HabitWidgetManager.getHabitPosition(context, id)
 
@@ -103,8 +102,8 @@ class HabitWidget: AppWidgetProvider() {
 
             val habit = HabitManager.getHabits(context)[habitPosition]
             views.setInt(R.id.iv_widget_habit_background, "setColorFilter", habit.color)
-            if (!habit.days.isEmpty()) {
-                if (habit.days[0] == StringUtil.getCurrentDay()) {
+            if(!habit.days.isEmpty()) {
+                if(habit.days[0] == StringUtil.getCurrentDay()) {
                     // 체크 되어있는 상태
                     habit.days.removeAt(0)
                     HabitManager.notifyDataSetChanged(context)
@@ -131,7 +130,7 @@ class HabitWidget: AppWidgetProvider() {
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget)
             if(appWidgetIds != null) {
-                this.onUpdate(context,appWidgetManager , appWidgetIds)
+                this.onUpdate(context, appWidgetManager, appWidgetIds)
             }
         }
         super.onReceive(context, intent)

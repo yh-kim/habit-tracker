@@ -31,7 +31,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.pickth.habit.R
 import com.pickth.habit.base.activity.BaseActivity
 import com.pickth.habit.listener.OnHabitMoveListener
-import com.pickth.habit.util.HabitManager
+import com.pickth.habit.manager.HabitManager
 import com.pickth.habit.util.HabitTouchHelperCallback
 import com.pickth.habit.util.LinearSpacingItemDecoration
 import com.pickth.habit.util.StringUtil
@@ -45,7 +45,6 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
-
 
 /**
  * Created by yonghoon on 2017-08-09
@@ -106,7 +105,7 @@ class MainActivity: BaseActivity(), MainContract.View {
 
             // linear
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            addItemDecoration(LinearSpacingItemDecoration(context,8, true))
+            addItemDecoration(LinearSpacingItemDecoration(context, 8, true))
             // grid
 //            layoutManager = GridLayoutManager(context, 2)
 //            addItemDecoration(GridSpacingItemDecoration(context,2, 16, false))

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.pickth.habit.widget
+package com.pickth.habit.manager
 
 import android.content.Context
-import com.pickth.habit.util.HabitManager
+import com.pickth.habit.manager.HabitManager
 
 /**
  * Created by yonghoon on 2017-08-15
@@ -25,17 +25,20 @@ import com.pickth.habit.util.HabitManager
 
 object HabitWidgetManager {
     fun addWidget(context: Context, widgetId: Int, habitId: String) {
-        context.getSharedPreferences("habitWidget", 0)
+        val applicationContext = context.applicationContext
+        applicationContext.getSharedPreferences("habitWidget", 0)
                 .edit()
                 .putString("$widgetId", habitId)
                 .apply()
     }
 
     fun getHabitPosition(context: Context, widgetId: Int): Int? {
-        val habitId = context
+        val applicationContext = context.applicationContext
+        val habitId = applicationContext
                 .getSharedPreferences("habitWidget", 0)
                 .getString("$widgetId", "")
-        val habits = HabitManager.getHabits(context)
+        val habits = HabitManager.getHabits(applicationContext)
+
         for(i in 0..habits.size - 1) {
             if(habits[i].id == habitId) {
                 return i

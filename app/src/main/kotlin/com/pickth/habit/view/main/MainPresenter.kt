@@ -20,7 +20,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import com.google.gson.Gson
 import com.pickth.habit.base.mvp.BaseView
-import com.pickth.habit.util.HabitManager
+import com.pickth.habit.manager.HabitManager
 import com.pickth.habit.listener.OnHabitTouchListener
 import com.pickth.habit.listener.OnHabitDragListener
 import com.pickth.habit.util.StringUtil
