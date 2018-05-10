@@ -84,6 +84,8 @@ class HabitViewHolder(view: View, val listener: OnHabitTouchListener, val dragLi
                     var textDay = ""
                     if(day == "0") {
                         textDay = context.getString(R.string.habit_today)
+                    } else if(day == "1") {
+                        textDay = day + context.getString(R.string.habit_day_ago)
                     } else {
                         textDay = day + context.getString(R.string.habit_days_ago)
                     }
