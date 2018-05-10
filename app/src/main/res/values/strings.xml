@@ -19,7 +19,8 @@
 
     <!-- habit -->
     <string name="habit_today">today</string>
-    <string name="habit_days_ago">days ago</string>
+    <string name="habit_day_ago">\nday\nago</string>
+    <string name="habit_days_ago">\ndays\nago</string>
 
     <!-- add habit -->
     <string name="input_habit_name">Enter habit name</string>

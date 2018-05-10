@@ -19,6 +19,7 @@
 
     <!-- habit -->
     <string name="habit_today">오늘</string>
+    <string name="habit_day_ago">일 전</string>
     <string name="habit_days_ago">일 전</string>
 
     <!-- add habit -->
