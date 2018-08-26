@@ -35,9 +35,9 @@ class MainAdapter: RecyclerView.Adapter<HabitViewHolder>(), MainAdapterContract.
     private lateinit var mListener: OnHabitTouchListener
     private lateinit var mDragListener: OnHabitDragListener
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): HabitViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         val itemView = LayoutInflater
-                .from(parent?.context)
+                .from(parent.context)
                 .inflate(R.layout.item_habit_long, parent, false)
         return HabitViewHolder(itemView, mListener, mDragListener)
     }

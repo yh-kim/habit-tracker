@@ -52,3 +52,5 @@ freeline_project_description.json
 
 release/
 admob_strings.xml
+
+.DS_Store

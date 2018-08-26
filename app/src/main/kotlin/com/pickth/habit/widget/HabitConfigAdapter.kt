@@ -34,12 +34,12 @@ class HabitConfigAdapter: RecyclerView.Adapter<HabitConfigAdapter.HabitConfigVie
     private lateinit var mListener: OnHabitConfigClickListener
     override fun getItemCount(): Int = mItems.size
 
-    override fun onBindViewHolder(holder: HabitConfigViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: HabitConfigViewHolder, position: Int) {
         holder?.onBInd(mItems[position], position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): HabitConfigViewHolder {
-        val view = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitConfigViewHolder {
+        val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_habit_config, parent, false)
         return HabitConfigViewHolder(view, mListener)
     }

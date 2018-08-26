@@ -48,9 +48,9 @@ class ImportHabitAdapter: RecyclerView.Adapter<ImportHabitAdapter.ImportHabitVie
 
     override fun getItemCount(): Int = mItems.size
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ImportHabitViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImportHabitViewHolder {
         val itemView = LayoutInflater
-                .from(parent?.context)
+                .from(parent.context)
                 .inflate(R.layout.item_habit_import, parent, false)
 
         return ImportHabitViewHolder(itemView, mListener)
